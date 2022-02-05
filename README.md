@@ -83,6 +83,30 @@ eslint:
 ```
 
 
+### Building the Docker Container
+
+Run the below make command from the root of this repository to create a local fat docker image
+```shell
+make image
+```
+
+### Building a Slim Container
+
+Run the below make command from the root of this repository to create a local slim docker image
+```shell
+make slim
+```
+
+
+### Test
+
+Run the below command from the root of this repository to test the images created by this repository.
+```shell
+make test
+```
+
+
+
 ### Need help?
 
 For help with ESLint, [check out their documentation][eslint-docs].
