@@ -1,13 +1,15 @@
 engines:
   eslint:
     enabled: true
-  duplication:
-    enabled: true
-    config:
-      languages:
-      - javascript
-  shellcheck:
-    enabled: true
+    #config:
+      #config: /usr/src/app/lib/strict_mode_config/.eslintrc.js
+  #duplication:
+    #enabled: true
+    #config:
+      #languages:
+      #- javascript
+  #shellcheck:
+    #enabled: true
 ratings:
   paths:
   - bin/
