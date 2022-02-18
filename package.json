@@ -24,7 +24,7 @@
     "build": "task docker:build",
     "bump": "npm run build && npm version patch --no-commit-hooks --no-git-tag-version --force && npm publish",
     "help": "task --menu",
-    "prepare": "task common:husky",
+    "prepare": "npm run start && task common:husky",
     "repair": "bash <(curl -sS https://install.doctor/repair)",
     "start": "bash start.sh",
     "test": "task docker:test"
@@ -40,9 +40,8 @@
     "eslint": "^8.9.0",
     "glob": "^7.2.0"
   },
-  "optionalDependencies": {},
   "devDependencies": {
-    "@commitlint/config-conventional": "^16.0.0",
+    "@commitlint/config-conventional": "^16.2.1",
     "@washingtondc/development": "latest",
     "cz-emoji-conventional": "^1.0.1",
     "eslint-config-strict-mode": "latest",
@@ -82,10 +81,10 @@
       "TypeScript",
       "YAML"
     ],
-    "description": "An ESLint 8 standalone slim container or a slim CodeClimate engine container for GitLab CI - take your pick",
+    "description": "A multi-build project including an ESLint 8 standalone slim container and a slim CodeClimate engine container for GitLab CI",
     "dockerSlimCommand": {
       "codeclimate-eslint": "--http-probe=false --exec '/usr/src/app/bin/eslint.js || continue' --mount \"$PWD/test/example:/code\" --workdir '/code' --preserve-path-file 'paths.codeclimate-eslint.txt'",
-      "eslint": "--http-probe=false --exec 'eslint --help' --preserve-path-file 'paths.eslint.txt'"
+      "eslint": "--http-probe=false --exec 'pnpx eslint --help' --preserve-path-file 'paths.eslint.txt'"
     },
     "github_id": "R_kgDOG3hNcQ",
     "gitlab_group_id": "14556970",

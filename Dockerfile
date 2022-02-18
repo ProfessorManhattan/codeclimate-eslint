@@ -8,7 +8,7 @@ ENV NODE_PATH "$PREFIX"
 ENV NPM_CONFIG_PREFIX "$PREFIX"
 
 COPY bin/docs ./bin/docs
-COPY engine.json package.json pnpm-lock.yaml ./
+COPY engine.json package.json yarn.lock ./
 
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 RUN adduser --uid 9000 --gecos "" --disabled-password app \
@@ -16,16 +16,14 @@ RUN adduser --uid 9000 --gecos "" --disabled-password app \
     && apk --no-cache add --virtual build-dependencies \
       git=~2 \
       jq=~1 \
-    && npm i -g \
-      eslint@latest \
-      pnpm@latest \
-    && pnpm config set prefix "$PREFIX"
-
-RUN pnpm install --modules-dir "$PREFIX" --unsafe-perm \
+      yarn=~1 \
+    && yarn config set prefix "$PREFIX" \
+    && yarn install --modules-folder "$PREFIX" --ignore-scripts \
+    && yarn cache clean \
     && chown -R app:app "$PREFIX" \
-    && VERSION="v$(pnpm list eslint | grep 'eslint ' | sed 's/^[^ ]*.//')" \
+    && VERSION="v$(yarn list eslint | grep eslint | sed -n 's/.*@//p')" \
     && ./bin/docs "$VERSION" \
-    && cat engine.json | jq --arg version "$VERSION" '.version = $version' > /engine.json \
+    && jq --arg version "$VERSION" '.version = $version' > /engine.json < engine.json \
     && apk del build-dependencies
 
 COPY . ./
@@ -61,11 +59,15 @@ FROM codeclimate-eslint AS eslint
 VOLUME /work
 WORKDIR /work
 
-RUN sudo rm -rf /code \
-  && sudo rm -rf /usr/src/app \
-  && sudo rm -f /engine.json
+USER root
 
-ENTRYPOINT ["eslint"]
+RUN rm -rf /code \
+  && rm -rf /usr/src/app \
+  && rm -f /engine.json
+
+USER app
+
+ENTRYPOINT ["pnpx", "eslint"]
 CMD ["--version"]
 
 LABEL space.megabyte.type="code-climate-standalone"
