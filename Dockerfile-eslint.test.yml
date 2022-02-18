@@ -1,0 +1,19 @@
+schemaVersion: '2.0.0'
+
+commandTests:
+  - name: 'Test --version'
+    command: 'eslint --version'
+    exitCode: 0
+  - name: 'Test --help'
+    command: 'eslint --help'
+    exitCode: 0
+
+metadataTest:
+  labels:
+    - key: 'maintainer'
+      value: 'Megabyte Labs <help@megabyte.space>'
+    - key: 'space.megabyte.type'
+      value: 'code-climate-standalone'
+  volumes: ['/work']
+  workdir: '/work'
+  user: 'app'

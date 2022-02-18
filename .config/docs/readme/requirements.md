@@ -1,18 +1,14 @@
 ## Requirements
 
-If you are simply including this library in your project, all you need is a recent version of Node.js. **[Node.js >14.18.0]({{ repository.project.node }})** is sometimes required and is the only version range we actively support. Albeit, it is highly probable that lower versions will work as well depending on the requirements that this project imports.
+- **[Docker](https://gitlab.com/megabyte-labs/ansible-roles/docker)**
 
-### Developer Requirements
+### Optional Requirements
 
-The following versions of Node.js and Python are required for development:
+- [DockerSlim]({{ repository.project.dockerslim }}) - Used for generating compact, secure images
+- [jq]({{ repository.project.jq }}) - Used for interacting with JSON
+- [Node.js]({{ repository.project.node }}) (_Version >=14.18_) - Utilized to add development features like a pre-commit hook and maintenance tasks
+- Many more requirements that are dynamically installed as they are needed by our `Taskfile.yml` via our custom [go-task/task](https://github.com/go-task/task) fork named **[Bodega](https://github.com/ProfessorManhattan/Bodega)**
 
-- **[Node.js >14.18.0]({{ repository.project.node }})**
-- **[Python >3.10.0]({{ repository.project.python }})**
+If you choose to utilize the development tools provided by this project then at some point you will have to run `bash start.sh` (or `npm i` which calls `bash start.sh` after it is done). The `start.sh` script will attempt to automatically install any requirements (without sudo) that are not already present on your build system to the user's `~/.local/bin` folder. The `start.sh` script also takes care of other tasks such as generating the documentation by calling tasks defined in the `Taskfile.yml`. For more details on how the optional requirements are used and set up, check out the [CONTRIBUTING.md]({{ repository.group.dockerfile }}/{{ subgroup }}/{{ slug }}/-/blob/master/docs/CONTRIBUTING.md) guide.
 
-Other versions may work, but only the above versions are supported. Most development dependencies are installed automatically by our `Taskfile.yml` set-up (even Node.js and Python). Run `bash start.sh` to install **[Bodega](https://github.com/ProfessorManhattan/Bodega)** (an improved fork of [go-task](https://github.com/go-task/task)) and run the initialization sequence. The taskfiles will automatically install dependencies as they are needed, based on what development tasks you are running. For more information, check out the [CONTRIBUTING.md]({{ repository.github }}/blob/main/docs/CONTRIBUTING.md) or simply run:
-
-```shell
-npm run help
-```
-
-`npm run help` will ensure Bodega is installed and then open an interactive dialog where you can explore and learn about various developer commands.
+When you are ready to start development, run `task --menu` to open an interactive dialog that will help you understand what build commands we have already engineered for you.

@@ -1,17 +1,11 @@
 {
-  "name": "eslint",
-  "description": "A JavaScript/TypeScript linting utility.",
+  "name": "codeclimate-eslint",
+  "description": "A CodeClimate engine for ESLint 8",
   "maintainer": {
     "name": "Megabyte Labs",
     "email": "help@megabyte.space"
   },
-  "languages": [
-    "JavaScript",
-    "JSON",
-    "TSX",
-    "TypeScript",
-    "YAML"
-  ],
-  "version": "3.19.0",
-  "spec_version": "0.3.1"
+  "languages": JavaScript,JSON,TSX,TypeScript,YAML,
+  "version": "0.0.0",
+  "spec_version": "0.0.1"
 }
