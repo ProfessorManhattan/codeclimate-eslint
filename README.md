@@ -52,7 +52,7 @@
   </a>
 </div>
 
-> </br><h4 align="center">**An ESLint 8 standalone slim container or a slim CodeClimate engine container for GitLab CI - take your pick**</h4></br>
+> </br><h4 align="center">**A multi-build project including an ESLint 8 standalone slim container and a slim CodeClimate engine container for GitLab CI**</h4></br>
 
 <a href="#table-of-contents" style="width:100%"><img style="width:100%" src="https://gitlab.com/megabyte-labs/assets/-/raw/master/png/aqua-divider.png" /></a>
 
@@ -237,7 +237,7 @@ export DOCKERHUB_PASSWORD=Your_DockerHub_Password_Here
 docker login -u "$DOCKERHUB_USERNAME" -p "$DOCKERHUB_PASSWORD" docker.io
 docker build -t "$DOCKERHUB_USERNAME/eslint:latest" .
 docker-slim build --tag $DOCKERHUB_USERNAME/eslint:slim * **codeclimate-eslint**: --http-probe=false --exec '/usr/src/app/bin/eslint.js || continue' --mount "$PWD/test/example:/code" --workdir '/code' --preserve-path-file 'paths.codeclimate-eslint.txt'
-* **eslint**: --http-probe=false --exec 'eslint --help' --preserve-path-file 'paths.eslint.txt' $DOCKERHUB_USERNAME/eslint:latest
+* **eslint**: --http-probe=false --exec 'pnpx eslint --help' --preserve-path-file 'paths.eslint.txt' $DOCKERHUB_USERNAME/eslint:latest
 docker push "$DOCKERHUB_USERNAME/eslint:slim"
 ```
 

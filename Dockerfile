@@ -44,7 +44,7 @@ ARG VERSION
 LABEL maintainer="Megabyte Labs <help@megabyte.space>"
 LABEL org.opencontainers.image.authors="Brian Zalewski <brian@megabyte.space>"
 LABEL org.opencontainers.image.created=$BUILD_DATE
-LABEL org.opencontainers.image.description="An ESLint 8 standalone slim container or a slim CodeClimate engine container for GitLab CI - take your pick"
+LABEL org.opencontainers.image.description="A multi-build project including an ESLint 8 standalone slim container and a slim CodeClimate engine container for GitLab CI"
 LABEL org.opencontainers.image.documentation="https://github.com/ProfessorManhattan/codeclimate-eslint/blob/master/README.md"
 LABEL org.opencontainers.image.licenses="MIT"
 LABEL org.opencontainers.image.revision=$REVISION
