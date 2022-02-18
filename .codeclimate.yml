@@ -1,20 +1,7 @@
+---
 engines:
   eslint:
     enabled: true
-    #config:
-      #config: /usr/src/app/lib/strict_mode_config/.eslintrc.js
-  #duplication:
-    #enabled: true
-    #config:
-      #languages:
-      #- javascript
-  #shellcheck:
-    #enabled: true
-ratings:
-  paths:
-  - bin/
-  - lib/**/*.js
 exclude_paths:
 - "node_modules/**"
 - "test/**"
-- "integration/**"
