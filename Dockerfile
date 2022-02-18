@@ -1,28 +1,27 @@
 FROM node:17-alpine AS codeclimate-eslint
 
-RUN adduser --uid 9000 --gecos "" --disabled-password app
-
 WORKDIR /usr/src/app
 
-ENV PREFIX=/usr/local/node_modules
-ENV PATH=$PREFIX/.bin:$PATH
-ENV NODE_PATH=$PREFIX
-ENV NPM_CONFIG_PREFIX=$PREFIX
-
-RUN mkdir $PREFIX
+ENV PREFIX "/usr/local/node_modules"
+ENV PATH "$PREFIX/bin:$PATH"
+ENV NODE_PATH "$PREFIX"
+ENV NPM_CONFIG_PREFIX "$PREFIX"
 
 COPY bin/docs ./bin/docs
 COPY engine.json package.json pnpm-lock.yaml ./
 
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
-RUN apk --no-cache add --virtual build-dependencies \
+RUN adduser --uid 9000 --gecos "" --disabled-password app \
+    && mkdir $PREFIX \
+    && apk --no-cache add --virtual build-dependencies \
       git=~2 \
       jq=~1 \
     && npm i -g \
       eslint@latest \
       pnpm@latest \
-    && pnpm config set prefix "$PREFIX" \
-    && pnpm install --modules-folder "$PREFIX" \
+    && pnpm config set prefix "$PREFIX"
+
+RUN pnpm install --modules-dir "$PREFIX" --unsafe-perm \
     && chown -R app:app "$PREFIX" \
     && VERSION="v$(pnpm list eslint | grep 'eslint ' | sed 's/^[^ ]*.//')" \
     && ./bin/docs "$VERSION" \
@@ -30,7 +29,8 @@ RUN apk --no-cache add --virtual build-dependencies \
     && apk del build-dependencies
 
 COPY . ./
-RUN chown -R app:app ./ &&
+
+RUN chown -R app:app ./
 
 USER app
 
