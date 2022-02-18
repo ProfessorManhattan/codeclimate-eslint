@@ -1,4 +1,4 @@
-## ESLint
+## More Information About ESLint
 
 For those of you who are unaware, [ESLint](https://eslint.org/) is a CLI tool that makes it easy to find and fix problems in JavaScript/TypeScript code. It can also do the same for JSON and YAML files. What makes it really special is its ability to automatically fix errors. Want all your objects, JSON, and YML sorted alphabetically? It can handle that and much more. You should include a configuration in your project for this CodeClimate engine/standalone linter to work properly.
 

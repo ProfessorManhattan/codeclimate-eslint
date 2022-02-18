@@ -1,8 +1,8 @@
 {
   "private": false,
-  "name": "@mblabs/codeclimate-codeclimate-eslint",
+  "name": "@megabytelabs/codeclimate-eslint",
   "version": "0.0.3",
-  "description": "A CodeClimate engine for ESLint 8",
+  "description": "An ESLint 8 standalone slim container or a slim CodeClimate engine container for GitLab CI - take your pick",
   "license": "MIT",
   "author": "Brian Zalewski <brian@megabyte.space> (https://megabyte.space)",
   "homepage": "https://megabyte.space",
@@ -40,10 +40,12 @@
     "eslint": "^8.9.0",
     "glob": "^7.2.0"
   },
+  "optionalDependencies": {},
   "devDependencies": {
     "@commitlint/config-conventional": "^16.0.0",
     "@washingtondc/development": "latest",
-    "eslint-config-strict-mode": "^1.0.41",
+    "cz-emoji-conventional": "^1.0.1",
+    "eslint-config-strict-mode": "latest",
     "git-cz-emoji": "latest",
     "glob": "^7.2.0",
     "handlebars-helpers": "^0.10.0",
@@ -69,7 +71,7 @@
     "node": ">=14.18.0"
   },
   "publishConfig": {
-    "@megabyte:registry": "https://gitlab.com/api/v4/projects//packages/npm/",
+    "@megabyte:registry": "https://gitlab.com/api/v4/projects/32219047/packages/npm/",
     "access": "public"
   },
   "blueprint": {
@@ -80,11 +82,14 @@
       "TypeScript",
       "YAML"
     ],
-    "description": "A CodeClimate engine for ESLint 8",
+    "description": "An ESLint 8 standalone slim container or a slim CodeClimate engine container for GitLab CI - take your pick",
     "dockerSlimCommand": {
       "codeclimate-eslint": "--http-probe=false --exec '/usr/src/app/bin/eslint.js || continue' --mount \"$PWD/test/example:/code\" --workdir '/code' --preserve-path-file 'paths.codeclimate-eslint.txt'",
       "eslint": "--http-probe=false --exec 'eslint --help' --preserve-path-file 'paths.eslint.txt'"
     },
+    "github_id": "R_kgDOG3hNcQ",
+    "gitlab_group_id": "14556970",
+    "gitlab_project_id": "32219047",
     "group": "docker",
     "name": "ESLint CodeClimate Engine",
     "overview": "This project is the home of an ESLint 8 [CodeClimate](https://codeclimate.com/) engine. It was built to integrate ESLint results into the GitLab merge request web UI. It adopts most of its code from the [official CodeClimate ESLint engine](https://github.com/codeclimate/codeclimate-eslint). However, that configuration was last updated years ago so an update should be welcomed. In addition, this CodeClimate engine automatically updates the ESLint configuration used from NPM each time it runs. The configuration it uses by default is [eslint-config-strict-mode](https://github.com/ProfessorManhattan/eslint-config-strict-mode) and is suitable for TypeScript, JavaScript, YML, and JSON files.",
@@ -92,12 +97,9 @@
       "github": "https://github.com/ProfessorManhattan/codeclimate-eslint",
       "gitlab": "https://gitlab.com/megabyte-labs/docker/codeclimate/eslint"
     },
-    "slug": "codeclimate-eslint",
+    "slug": "eslint",
     "subgroup": "codeclimate",
-    "title": "ESLint 8 CodeClimate Engine",
-    "github_id": "R_kgDOG3hNcQ",
-    "gitlab_project_id": "32219047",
-    "gitlab_group_id": ""
+    "title": "ESLint v8.x.x CodeClimate Engine"
   },
   "changelog": {
     "displayTypes": [
@@ -208,6 +210,21 @@
       "repair": "Fixes basic issues in projects that are having trouble running basic commands like 'task start'",
       "start": "Entrypoint for new developers that installs requirements and then runs 'task start'",
       "test": "Runs the appropriate test logic by running the test command defined under scripts in package.json"
+    }
+  },
+  "pnpm": {
+    "neverBuiltDependencies": [
+      "core-js",
+      "core-js-pure",
+      "highlight.js"
+    ],
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "@typescript-eslint/eslint-plugin",
+        "eslint",
+        "prettier",
+        "typescript"
+      ]
     }
   },
   "prettier": "prettier-config-sexy-mode",

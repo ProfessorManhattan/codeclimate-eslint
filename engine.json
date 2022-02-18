@@ -1,11 +1,11 @@
 {
-  "description": "A CodeClimate engine for ESLint 8",
-  "languages": [],
+  "description": "An ESLint 8 standalone slim container or a slim CodeClimate engine container for GitLab CI - take your pick",
+  "languages": ["JavaScript", "JSON", "TSX", "TypeScript", "YAML"],
   "maintainer": {
     "email": "help@megabyte.space",
     "name": "Megabyte Labs"
   },
-  "name": "codeclimate-eslint",
+  "name": "eslint",
   "spec_version": "0.0.1",
-  "version": "0.0.0"
+  "version": "0.0.3"
 }

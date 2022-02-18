@@ -58,13 +58,15 @@
       "The subgroup is found by looking at the second to last part of the URL of the repository (e.g. for Ansible Lint the subgroup would be `ci-pipeline`)."
     ]
   ],
+  "codeClimateSpecVersion": "0.0.1",
   "commit_help_url": "https://megabyte.space/docs/contributing/commit-guidelines",
   "company": "Megabyte LLC",
   "copyright": "2020-2021",
+  "dockerExampleCommand": "--help",
   "docker_label_authors": "Brian Zalewski <brian@megabyte.space>",
   "docs": {
     "header_description_post": "<i></i>",
-    "header_description_pre": "A CodeClimate plugin maintained by ",
+    "header_description_pre": "A slim Docker image and CodeClimate engine maintained by ",
     "header_title_post": "<i></i>",
     "header_title_pre": "<i></i>",
     "link": "https://megabyte.space/docs/docker/ci"
@@ -131,7 +133,7 @@
   "name": "[[ package.json .blueprint.name - See CONTRIBUTING.md ]]",
   "npm_publish_config_access": "public",
   "npm_standard_version_prerelease": "git add --all",
-  "npm_type": "module",
+  "npm_type": "commonjs",
   "organization": "Megabyte Labs",
   "overview": "[[ This is a new repository without the details filled in yet. Look for the section about blueprint data in the CONTRIBUTING.md to set up the project. ]]",
   "profile": {
@@ -141,7 +143,7 @@
     "github": "ProfessorManhattan",
     "linkedin": "blzalewski",
     "npmjs": "thisismyfirstday",
-    "npmjs_organization": "mblabs",
+    "npmjs_organization": "megabytelabs",
     "opencollective": "megabytelabs",
     "patreon": "ProfessorManhattan",
     "pypi": "ProfessorManhattan",
@@ -255,7 +257,7 @@
   "scriptsHelp": "task --menu",
   "scriptsPrepare": "task common:husky",
   "scriptsStart": "bash start.sh",
-  "scriptsTest": "task docker:test:container-structure-test",
+  "scriptsTest": "task docker:test",
   "sharp_instructions": [],
   "slackNotificationChannel": "#misc",
   "slackNotificationIcon": "https://gitlab.com/megabyte-labs/misc/assets/-/raw/master/logo/megabytelabs-color-icon-350x350.png",

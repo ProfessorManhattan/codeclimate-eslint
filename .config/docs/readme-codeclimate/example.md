@@ -1,6 +1,6 @@
 ## Examples
 
-There are several different ways you can use the Docker container provided by this project. For starters, you can test the feature out locally by running:
+There are several different ways you can use the Docker container provided by this project. For starters, you can test the tool out locally by running:
 
 ```shell
 docker run -it -v ${PWD}:/work -w /work --rm megabytelabs/{{ slug }}:latest {{ dockerExampleCommand }}
@@ -22,9 +22,43 @@ _Note: Some CLI tools run without any arguments passed in. For example, the CLI 
 
 The main purpose of this project is to build a Docker container that can be used in CI pipelines and during GitLab CI CodeClimate analysis.
 
-#### CodeClimate Integration
+#### CodeClimate GitLab CI Example
 
 If you are interested in improving the GitLab web UI for your merge requests, then you can take a peek at our [GitLab CI configuration for CodeClimate](https://gitlab.com/megabyte-labs/gitlab-ci/-/raw/master/lint/codeclimate.gitlab-ci.yml). It has to run in a single CI stage that includes all the linters you want to report on because GitLab CI only accepts one CodeClimate report artifact.
+
+#### CodeClimate CLI Walkthrough
+
+If you want to incorporate CodeClimate into your project, you need to ensure that you have a `.codeclimate.yml` properly setup in the root of your project. At the very minimum, the file might look something like this:
+
+```yml
+---
+engines:
+  {{slug}}:
+    enabled: true
+exclude_paths:
+  - 'node_modules/**'
+```
+
+Also, before you run the CodeClimate CLI, you need to ensure that this project's CodeClimate image is pulled to your local cache and properly tagged for CodeClimate. You can accomplish this by running:
+
+```shell
+docker pull megabytelabs/codeclimate-{{slug}}:latest
+docker tag megabytelabs/codeclimate-{{slug}}:latest codeclimate/codeclimate-{{slug}}:latest
+```
+
+After that, you need to invoke the CodeClimate CLI by passing the `--dev` parameter. This may seem hacky but it is the only way of using CodeClimate engines that are not officially hosted in the `codeclimate` namespace on DockerHub. Your CLI command might look something like this:
+
+```shell
+brew install codeclimate/formulae/codeclimate
+codeclimate analyze --dev
+```
+
+Or if you want to see an HTML report:
+
+```shell
+brew install codeclimate/formulae/codeclimate
+codeclimate analyze --dev  -f html > codeclimate-report.html
+```
 
 #### Standalone Integration
 

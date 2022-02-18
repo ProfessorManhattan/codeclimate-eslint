@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "codeclimate-codeclimate-eslint"
+name = "codeclimate-eslint"
 version = "0.0.3"
-description = "A CodeClimate engine for ESLint 8"
+description = "An ESLint 8 standalone slim container or a slim CodeClimate engine container for GitLab CI - take your pick"
 authors = ["Brian Zalewski <brian@megabyte.space>"]
 license = "MIT"
 readme = "README.md"
