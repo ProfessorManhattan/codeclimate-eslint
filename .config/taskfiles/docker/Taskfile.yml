@@ -56,6 +56,17 @@ tasks:
           task docker:publish:images -- "$TEST_IMAGE_SLUG"
         done
 
+  publish:image:
+    log:
+      error: Failed to tag / push `{{.DOCKER_IMAGE}}:{{.TARGET_TAG}}`
+      start: Tagging and pushing `{{.DOCKER_IMAGE}}:{{.TARGET_TAG}}`
+      success: Finished uploading `{{.DOCKER_IMAGE}}:{{.TARGET_TAG}}`
+    cmds:
+      - docker tag {{.DOCKER_IMAGE}}:{{.SOURCE_TAG}} {{.DOCKER_IMAGE}}:{{.TARGET_TAG}}
+      - docker push {{.DOCKER_IMAGE}}:{{.TARGET_TAG}}
+    status:
+      - if [[ '{{.SOURCE_TAG}}' == 'slim' ]]; then [[ '{{.SLIM_ENABLED}}' == 'false' ]]; fi
+
   publish:images:
     vars:
       MAJOR_VERSION:
@@ -92,17 +103,6 @@ tasks:
           SOURCE_TAG: slim
           TARGET_TAG: slim
       - task: pushrm
-
-  publish:image:
-    log:
-      error: Failed to tag / push `{{.DOCKER_IMAGE}}:{{.TARGET_TAG}}`
-      start: Tagging and pushing `{{.DOCKER_IMAGE}}:{{.TARGET_TAG}}`
-      success: Finished uploading `{{.DOCKER_IMAGE}}:{{.TARGET_TAG}}`
-    cmds:
-      - docker tag {{.DOCKER_IMAGE}}:{{.SOURCE_TAG}} {{.DOCKER_IMAGE}}:{{.TARGET_TAG}}
-      - docker push {{.DOCKER_IMAGE}}:{{.TARGET_TAG}}
-    status:
-      - if [[ '{{.SOURCE_TAG}}' == 'slim' ]]; then [[ '{{.SLIM_ENABLED}}' == 'false' ]]; fi
 
   pushrm:
     deps:

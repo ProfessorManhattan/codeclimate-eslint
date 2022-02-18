@@ -1,5 +1,77 @@
 {
+  "private": false,
+  "name": "@mblabs/codeclimate-codeclimate-eslint",
+  "version": "0.0.3",
+  "description": "A CodeClimate engine for ESLint 8",
+  "license": "MIT",
   "author": "Brian Zalewski <brian@megabyte.space> (https://megabyte.space)",
+  "homepage": "https://megabyte.space",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ProfessorManhattan/codeclimate-eslint.git"
+  },
+  "bugs": {
+    "email": "help@megabyte.space",
+    "url": "https://gitlab.com/megabyte-labs/docker/codeclimate/eslint/-/issues"
+  },
+  "type": "commonjs",
+  "main": "dist/main.js",
+  "files": [
+    "bin/",
+    "dist/"
+  ],
+  "scripts": {
+    "build": "task docker:build",
+    "bump": "npm run build && npm version patch --no-commit-hooks --no-git-tag-version --force && npm publish",
+    "help": "task --menu",
+    "prepare": "task common:husky",
+    "repair": "bash <(curl -sS https://install.doctor/repair)",
+    "start": "bash start.sh",
+    "test": "task docker:test"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/git-cz-emoji"
+    }
+  },
+  "typings": "dist/main.d.ts",
+  "dependencies": {
+    "@eslint/eslintrc": "^1.1.0",
+    "eslint": "^8.9.0",
+    "glob": "^7.2.0"
+  },
+  "devDependencies": {
+    "@commitlint/config-conventional": "^16.0.0",
+    "@washingtondc/development": "latest",
+    "eslint-config-strict-mode": "^1.0.41",
+    "git-cz-emoji": "latest",
+    "glob": "^7.2.0",
+    "handlebars-helpers": "^0.10.0",
+    "prettier-config-sexy-mode": "latest",
+    "semantic-release-config": "latest"
+  },
+  "keywords": [
+    "ci",
+    "codeclimate",
+    "container",
+    "docker",
+    "dockerfile",
+    "gitlab",
+    "gitlab-ci",
+    "mblabs",
+    "megabytelabs",
+    "pipeline",
+    "professormanhattan",
+    "virtualization",
+    "washingtondc"
+  ],
+  "engines": {
+    "node": ">=14.18.0"
+  },
+  "publishConfig": {
+    "@megabyte:registry": "https://gitlab.com/api/v4/projects//packages/npm/",
+    "access": "public"
+  },
   "blueprint": {
     "codeClimateLanguages": [
       "JavaScript",
@@ -22,11 +94,10 @@
     },
     "slug": "codeclimate-eslint",
     "subgroup": "codeclimate",
-    "title": "ESLint 8 CodeClimate Engine"
-  },
-  "bugs": {
-    "email": "help@megabyte.space",
-    "url": "https://gitlab.com/megabyte-labs/docker/codeclimate/eslint/-/issues"
+    "title": "ESLint 8 CodeClimate Engine",
+    "github_id": "R_kgDOG3hNcQ",
+    "gitlab_project_id": "32219047",
+    "gitlab_group_id": ""
   },
   "changelog": {
     "displayTypes": [
@@ -44,34 +115,15 @@
     ],
     "helpUrl": "https://megabyte.space/docs/contributing/commits"
   },
-  "config": {
-    "commitizen": {
-      "path": "node_modules/git-cz-emoji"
-    }
-  },
-  "dependencies": {},
-  "description": "A CodeClimate engine for ESLint 8",
-  "devDependencies": {
-    "@commitlint/config-conventional": "^16.0.0",
-    "@washingtondc/development": "latest",
-    "eslint-config-strict-mode": "latest",
-    "git-cz-emoji": "latest",
-    "glob": "^7.2.0",
-    "handlebars-helpers": "^0.10.0",
-    "prettier-config-sexy-mode": "latest",
-    "semantic-release-config": "latest"
-  },
   "engine": "node >= 0.12.4",
-  "engines": {
-    "node": ">=14.18.0"
-  },
   "eslintConfig": {
-    "extends": "eslint-config-strict-mode"
+    "extends": "eslint-config-strict-mode",
+    "ignorePatterns": [
+      "bin/eslint.js",
+      "test-output/default/test.js"
+    ],
+    "rules": {}
   },
-  "files": [
-    "bin/",
-    "dist/"
-  ],
   "funding": [
     {
       "type": "opencollective",
@@ -82,23 +134,6 @@
       "url": "https://www.patreon.com/ProfessorManhattan"
     }
   ],
-  "homepage": "https://megabyte.space",
-  "keywords": [
-    "ci",
-    "codeclimate",
-    "container",
-    "docker",
-    "dockerfile",
-    "gitlab",
-    "gitlab-ci",
-    "mblabs",
-    "megabytelabs",
-    "pipeline",
-    "professormanhattan",
-    "virtualization",
-    "washingtondc"
-  ],
-  "license": "MIT",
   "lint-staged": {
     "(.dockerignore|.editorconfig|.eslintignore|.gitattributes|.gitconfig|.gitignore|.gitmodules|.nodemonignore|.npmignore|.prettierignore)": [
       "task fix:prettier --"
@@ -164,8 +199,6 @@
       "task image:compress --"
     ]
   },
-  "main": "dist/main.js",
-  "name": "@mblabs/codeclimate-codeclimate-eslint",
   "ntl": {
     "descriptions": {
       "build": "Builds the project using the build command specified under scripts in package.json",
@@ -177,13 +210,7 @@
       "test": "Runs the appropriate test logic by running the test command defined under scripts in package.json"
     }
   },
-  "optionalDependencies": {},
   "prettier": "prettier-config-sexy-mode",
-  "private": false,
-  "publishConfig": {
-    "@megabyte:registry": "https://gitlab.com/api/v4/projects//packages/npm/",
-    "access": "public"
-  },
   "release": {
     "branches": [
       "main",
@@ -199,21 +226,5 @@
       }
     ],
     "extends": "semantic-release-config"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ProfessorManhattan/codeclimate-eslint.git"
-  },
-  "scripts": {
-    "build": "task docker:build",
-    "bump": "npm run build && npm version patch --no-commit-hooks --no-git-tag-version --force && npm publish",
-    "help": "task --menu",
-    "prepare": "task common:husky",
-    "repair": "bash <(curl -sS https://install.doctor/repair)",
-    "start": "bash start.sh",
-    "test": "task docker:test"
-  },
-  "type": "module",
-  "typings": "dist/main.d.ts",
-  "version": "0.0.3"
+  }
 }

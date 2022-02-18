@@ -1,16 +1,16 @@
-schemaVersion: '2.0.0'
+schemaVersion: 2.0.0
 
 commandTests:
-  - name: 'Test entrypoint'
-    command: '/usr/src/app/test/eslint.js'
+  - name: Test entrypoint
+    command: /usr/src/app/test/eslint.js
     expectedOutput: ['.*Missing semicolon.*', '.*Unexpected console statement.*']
 
 metadataTest:
   labels:
-    - key: 'maintainer'
-      value: 'Megabyte Labs <help@megabyte.space>'
-    - key: 'space.megabyte.type'
-      value: 'code-climate'
-  volumes: ['/code']
-  workdir: '/code'
-  user: 'app'
+    - key: maintainer
+      value: Megabyte Labs <help@megabyte.space>
+    - key: space.megabyte.type
+      value: code-climate
+  volumes: [/code]
+  workdir: /code
+  user: app

@@ -3,5 +3,5 @@ engines:
   eslint:
     enabled: true
 exclude_paths:
-- "node_modules/**"
-- "test/**"
+  - 'node_modules/**'
+  - 'test/**'

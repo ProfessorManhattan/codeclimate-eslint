@@ -1,11 +1,11 @@
 {
-  "name": "codeclimate-eslint",
   "description": "A CodeClimate engine for ESLint 8",
+  "languages": [],
   "maintainer": {
-    "name": "Megabyte Labs",
-    "email": "help@megabyte.space"
+    "email": "help@megabyte.space",
+    "name": "Megabyte Labs"
   },
-  "languages": JavaScript,JSON,TSX,TypeScript,YAML,
-  "version": "0.0.0",
-  "spec_version": "0.0.1"
+  "name": "codeclimate-eslint",
+  "spec_version": "0.0.1",
+  "version": "0.0.0"
 }
