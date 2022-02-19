@@ -1,0 +1,11 @@
+{
+  "description": "An ESLint 8 slim container and a CodeClimate engine container for GitLab CI",
+  "languages": ["JavaScript", "JSON", "TSX", "TypeScript", "YAML"],
+  "maintainer": {
+    "email": "help@megabyte.space",
+    "name": "Megabyte Labs"
+  },
+  "name": "eslint",
+  "spec_version": "0.0.1",
+  "version": "0.0.3"
+}
