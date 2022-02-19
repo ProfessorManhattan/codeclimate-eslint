@@ -2,18 +2,15 @@
 schemaVersion: 2.0.0
 
 commandTests:
-  - name: Test basic commands
-    command: ls -la
-    exitCode: 0
-  - name: Cat test
-    command: cat /usr/src/app/bin/eslint.js
-    expectedOutput: ['.*[2].*']
-  - name: Test with .eslintrc.json
-    command: /usr/src/app/bin/eslint.js /usr/src/app/test/basic-test/
+  - name: .eslintrc.json
+    command: /usr/src/app/bin/eslint.js "/usr/src/app/test/basic-test"
     expectedOutput: ['.*Missing semicolon.*', '.*Unexpected console statement.*']
-  # - name: Test with package.json shared configuration
-  #  command: cd /usr/src/app/test/package-config/ && pnpm i && /usr/src/app/bin/eslint.js /usr/src/app/test/package-config/
-  #  expectedOutput: ['.*Missing semicolon.*', '.*Unexpected console statement.*']
+  - name: Shared configuration stored in package.json
+    command: |
+      cd /usr/src/app/test/package-config
+      pnpm install
+      /usr/src/app/bin/eslint.js "/usr/src/app/test/package-config"
+    expectedOutput: ['.*Missing semicolon.*', '.*Unexpected console statement.*']
 
 metadataTest:
   labels:
