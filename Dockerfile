@@ -24,7 +24,7 @@ RUN adduser --uid 9000 --gecos "" --disabled-password app \
     && chown -R app:app "$PREFIX" \
     && VERSION="v$(yarn list eslint | grep eslint | sed -n 's/.*@//p')" \
     && ./bin/docs "$VERSION" \
-    && jq --arg version "$VERSION" '.version = $version' > /engine.json < engine.json \
+    && jq --arg version "$VERSION" '.version = $version' > /engine.json < config/engine.json \
     && apk del build-dependencies
 
 COPY . ./

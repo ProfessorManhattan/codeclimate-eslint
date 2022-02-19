@@ -9,6 +9,10 @@ tasks:
         vars:
           NPM_PACKAGE: autocannon
 
+  bundle:
+    cmds:
+      - task: :install:modules:global
+
   clinic:
     run: once
     cmds:
