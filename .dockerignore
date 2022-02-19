@@ -119,7 +119,6 @@ LICENSE
 paths.txt
 paths.*.txt
 README.md
-start.sh
 Taskfile.yml
 test-output/
 .vscode/

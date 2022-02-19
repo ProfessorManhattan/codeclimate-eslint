@@ -52,7 +52,7 @@
   </a>
 </div>
 
-> </br><h4 align="center">**A multi-build project including an ESLint 8 standalone slim container and a slim CodeClimate engine container for GitLab CI**</h4></br>
+> </br><h4 align="center">**An ESLint 8 slim container and a CodeClimate engine container for GitLab CI**</h4></br>
 
 <a href="#table-of-contents" style="width:100%"><img style="width:100%" src="https://gitlab.com/megabyte-labs/assets/-/raw/master/png/aqua-divider.png" /></a>
 

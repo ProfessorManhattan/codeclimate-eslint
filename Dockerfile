@@ -8,17 +8,18 @@ ENV NODE_PATH "$PREFIX"
 ENV NPM_CONFIG_PREFIX "$PREFIX"
 
 COPY bin/docs ./bin/docs
-COPY engine.json package.json yarn.lock ./
+COPY engine.json package.json start.sh yarn.lock ./
 
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 RUN adduser --uid 9000 --gecos "" --disabled-password app \
     && mkdir $PREFIX \
     && apk --no-cache add --virtual build-dependencies \
+      bash=~5 \
       git=~2 \
       jq=~1 \
       yarn=~1 \
     && yarn config set prefix "$PREFIX" \
-    && yarn install --modules-folder "$PREFIX" --ignore-scripts \
+    && yarn install --modules-folder "$PREFIX" \
     && yarn cache clean \
     && chown -R app:app "$PREFIX" \
     && VERSION="v$(yarn list eslint | grep eslint | sed -n 's/.*@//p')" \
@@ -44,7 +45,7 @@ ARG VERSION
 LABEL maintainer="Megabyte Labs <help@megabyte.space>"
 LABEL org.opencontainers.image.authors="Brian Zalewski <brian@megabyte.space>"
 LABEL org.opencontainers.image.created=$BUILD_DATE
-LABEL org.opencontainers.image.description="A multi-build project including an ESLint 8 standalone slim container and a slim CodeClimate engine container for GitLab CI"
+LABEL org.opencontainers.image.description="An ESLint 8 slim container and a CodeClimate engine container for GitLab CI"
 LABEL org.opencontainers.image.documentation="https://github.com/ProfessorManhattan/codeclimate-eslint/blob/master/README.md"
 LABEL org.opencontainers.image.licenses="MIT"
 LABEL org.opencontainers.image.revision=$REVISION

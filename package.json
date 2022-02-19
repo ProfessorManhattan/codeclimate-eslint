@@ -2,7 +2,7 @@
   "private": false,
   "name": "@megabytelabs/codeclimate-eslint",
   "version": "0.0.3",
-  "description": "A multi-build project including an ESLint 8 standalone slim container and a slim CodeClimate engine container for GitLab CI",
+  "description": "An ESLint 8 slim container and a CodeClimate engine container for GitLab CI",
   "license": "MIT",
   "author": "Brian Zalewski <brian@megabyte.space> (https://megabyte.space)",
   "homepage": "https://megabyte.space",
@@ -24,7 +24,7 @@
     "build": "task docker:build",
     "bump": "npm run build && npm version patch --no-commit-hooks --no-git-tag-version --force && npm publish",
     "help": "task --menu",
-    "prepare": "task common:husky",
+    "prepare": "npm run start && task common:husky",
     "repair": "bash <(curl -sS https://install.doctor/repair)",
     "start": "bash start.sh",
     "test": "task docker:test"
@@ -83,7 +83,7 @@
       "TypeScript",
       "YAML"
     ],
-    "description": "A multi-build project including an ESLint 8 standalone slim container and a slim CodeClimate engine container for GitLab CI",
+    "description": "An ESLint 8 slim container and a CodeClimate engine container for GitLab CI",
     "dockerSlimCommand": {
       "codeclimate-eslint": "--http-probe=false --exec '/usr/src/app/bin/eslint.js || continue' --mount \"$PWD/test/example:/code\" --workdir '/code' --preserve-path-file 'paths.codeclimate-eslint.txt'",
       "eslint": "--http-probe=false --exec 'pnpx eslint --help' --preserve-path-file 'paths.eslint.txt'"
@@ -211,6 +211,11 @@
     }
   },
   "pnpm": {
+    "allowedVersions": {
+      "@typescript-eslint/eslint-plugin": "5",
+      "eslint": "8",
+      "typescript": "4"
+    },
     "neverBuiltDependencies": [
       "core-js",
       "core-js-pure",

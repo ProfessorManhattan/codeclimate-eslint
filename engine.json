@@ -1,5 +1,5 @@
 {
-  "description": "A multi-build project including an ESLint 8 standalone slim container and a slim CodeClimate engine container for GitLab CI",
+  "description": "An ESLint 8 slim container and a CodeClimate engine container for GitLab CI",
   "languages": ["JavaScript", "JSON", "TSX", "TypeScript", "YAML"],
   "maintainer": {
     "email": "help@megabyte.space",
