@@ -1,0 +1,32 @@
+{
+  "private": false,
+  "name": "codeclimate-eslint-test",
+  "version": "0.0.3",
+  "type": "commonjs",
+  "scripts": {},
+  "dependencies": {},
+  "optionalDependencies": {},
+  "devDependencies": {
+    "eslint-config-strict-mode": "latest",
+    "glob": "^7.2.0",
+    "prettier-config-sexy-mode": "latest",
+    "typescript": "^4.5.5"
+  },
+  "engines": {
+    "node": ">=14.18.0"
+  },
+  "eslintConfig": {
+    "extends": "eslint-config-strict-mode"
+  },
+  "funding": [
+    {
+      "type": "opencollective",
+      "url": "https://opencollective.com/megabytelabs"
+    },
+    {
+      "type": "patreon",
+      "url": "https://www.patreon.com/ProfessorManhattan"
+    }
+  ],
+  "prettier": "prettier-config-sexy-mode"
+}

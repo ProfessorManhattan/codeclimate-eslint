@@ -1,8 +1,15 @@
+---
 schemaVersion: 2.0.0
 
 commandTests:
-  - name: Test entrypoint
-    command: /usr/src/app/test/eslint.js
+  - name: Test with .eslintrc.json
+    command: /usr/src/app/bin/eslint.js "/usr/src/app/test/basic-test"
+    expectedOutput: ['.*Missing semicolon.*', '.*Unexpected console statement.*']
+  - name: Test with package.json shared configuration
+    command: |
+      cd /usr/src/app/test/package-config
+      pnpm install
+      /usr/src/app/bin/eslint.js "/usr/src/app/test/package-config"
     expectedOutput: ['.*Missing semicolon.*', '.*Unexpected console statement.*']
 
 metadataTest:

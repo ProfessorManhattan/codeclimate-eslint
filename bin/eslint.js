@@ -1,6 +1,8 @@
 #!/usr/src/app/bin/node_gc
 
-const CODE_DIR = '/code'
+const cliArgs = process.argv.slice(2)
+
+const CODE_DIR = cliArgs[0] ? cliArgs[0] : '/code'
 process.chdir(CODE_DIR)
 
 const ESLint = require('../lib/eslint')
