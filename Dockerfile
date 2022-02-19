@@ -55,19 +55,19 @@ LABEL org.opencontainers.image.vendor "Megabyte Labs"
 LABEL org.opencontainers.image.version "$VERSION"
 LABEL space.megabyte.type "code-climate"
 
-FROM codeclimate-eslint AS eslint
+#FROM codeclimate-eslint AS eslint
 
-VOLUME /work
-WORKDIR /work
+#VOLUME /work
+#WORKDIR /work
 
-USER root
+#USER root
 
-RUN rm -rf /usr/src/app \
-  && rm -f /engine.json
+#RUN rm -rf /usr/src/app \
+#  && rm -f /engine.json
 
-USER app
+#USER app
 
-ENTRYPOINT ["pnpx", "eslint"]
-CMD ["--version"]
+#ENTRYPOINT ["pnpx", "eslint"]
+#CMD ["--version"]
 
-LABEL space.megabyte.type="code-climate-standalone"
+#LABEL space.megabyte.type="code-climate-standalone"
