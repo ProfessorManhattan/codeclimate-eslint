@@ -8,7 +8,7 @@ ENV NODE_PATH "$PREFIX"
 ENV NPM_CONFIG_PREFIX "$PREFIX"
 
 COPY bin/docs ./bin/docs
-COPY engine.json package.json start.sh yarn.lock ./
+COPY local/engine.json package.json start.sh yarn.lock ./
 
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 RUN adduser --uid 9000 --gecos "" --disabled-password app \
@@ -24,7 +24,7 @@ RUN adduser --uid 9000 --gecos "" --disabled-password app \
     && chown -R app:app "$PREFIX" \
     && VERSION="v$(yarn list eslint | grep eslint | sed -n 's/.*@//p')" \
     && ./bin/docs "$VERSION" \
-    && jq --arg version "$VERSION" '.version = $version' > /engine.json < config/engine.json \
+    && jq --arg version "$VERSION" '.version = $version' > /engine.json < ./engine.json \
     && apk del build-dependencies
 
 COPY . ./
