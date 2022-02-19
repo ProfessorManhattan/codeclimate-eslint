@@ -33,7 +33,7 @@ RUN adduser --uid 9000 --gecos "" --disabled-password app \
 
 USER app
 
-VOLUME /code
+VOLUME ["/code"]
 WORKDIR /code
 
 CMD ["/usr/src/app/bin/eslint.js"]

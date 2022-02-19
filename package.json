@@ -88,7 +88,7 @@
       "codeclimate-eslint": "121M"
     },
     "dockerSlimCommand": {
-      "codeclimate-eslint": "--http-probe=false --exec '/usr/src/app/bin/eslint.js' --mount \"$PWD/test/package-config:/code\" --workdir '/code' --preserve-path-file './local/paths.codeclimate-eslint.txt'",
+      "codeclimate-eslint": "--http-probe=false --exec '/usr/src/app/bin/eslint.js' --mount \"$(echo '$PWD')/test/package-config:/code\" --workdir '/code' --preserve-path-file './local/paths.codeclimate-eslint.txt'",
       "eslint": "--http-probe=false --exec 'pnpx eslint --help' --preserve-path-file './local/paths.eslint.txt'"
     },
     "dockerSlimSize": {
