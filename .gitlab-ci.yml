@@ -26,8 +26,8 @@ integration:standalone:
     name: megabytelabs/eslint:slim
     entrypoint: ['']
   script:
-    - pnpm install eslint-config-strict-mode@latest
-    - pnpx eslint -c package.json --no-eslintrc --format gitlab .
+    - pnpm install --modules-dir "$PREFIX" eslint-config-strict-mode@latest
+    - eslint -c package.json --no-eslintrc --format gitlab .
 integration:codeclimate:
   image: megabytelabs/codeclimate:slim
   script:

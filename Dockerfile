@@ -2,13 +2,17 @@ FROM node:17-alpine AS codeclimate-eslint
 
 WORKDIR /usr/src/app
 
+ARG ESLINT_VERSION=8.9.0
+
 ENV PREFIX=/usr/local/node_modules
-ENV PATH=$PREFIX/bin:$PATH
+ENV PATH=$PREFIX/.bin:$PREFIX/bin:$PATH
 ENV NODE_PATH=$PREFIX
 ENV NPM_CONFIG_PREFIX=$PREFIX
 
-COPY bin/docs ./bin/docs
-COPY local/engine.json package.json start.sh yarn.lock ./
+COPY bin ./bin
+COPY lib ./lib
+COPY test ./test
+COPY local/engine.json local/package.json ./
 
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 RUN adduser --uid 9000 --gecos "" --disabled-password app \
@@ -17,19 +21,15 @@ RUN adduser --uid 9000 --gecos "" --disabled-password app \
       bash=~5 \
       git=~2 \
       jq=~1 \
-      yarn=~1 \
-    && yarn config set prefix "$PREFIX" \
-    && yarn install --modules-folder "$PREFIX" \
-    && yarn cache clean \
+    && npm i -g pnpm@latest \
+    && pnpm config set global-dir "$PREFIX" \
+    && pnpm install --modules-dir "$PREFIX" \
     && chown -R app:app "$PREFIX" \
-    && VERSION="v$(yarn list eslint | grep eslint | sed -n 's/.*@//p')" \
+    && VERSION="v${ESLINT_VERSION}" \
     && ./bin/docs "$VERSION" \
     && jq --arg version "$VERSION" '.version = $version' > /engine.json < ./engine.json \
-    && apk del build-dependencies
-
-COPY . ./
-
-RUN chown -R app:app ./
+    && apk del build-dependencies \
+    && chown -R app:app ./
 
 USER app
 
@@ -60,14 +60,7 @@ FROM codeclimate-eslint AS eslint
 VOLUME /work
 WORKDIR /work
 
-USER root
-
-RUN rm -rf /usr/src/app \
-  && rm -f /engine.json
-
-USER app
-
-ENTRYPOINT ["pnpx eslint"]
+ENTRYPOINT ["eslint"]
 CMD ["--version"]
 
 LABEL space.megabyte.type="code-climate-standalone"
