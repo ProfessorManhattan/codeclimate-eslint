@@ -57,13 +57,11 @@ LABEL space.megabyte.type="code-climate"
 
 FROM codeclimate-eslint AS eslint
 
-VOLUME /work
 WORKDIR /work
 
 USER root
 
-RUN rm -rf /code \
-  && rm -rf /usr/src/app \
+RUN rm -rf /usr/src/app \
   && rm -f /engine.json
 
 USER app

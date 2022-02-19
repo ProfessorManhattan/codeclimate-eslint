@@ -28,7 +28,7 @@ devDependencies:
   '@commitlint/config-conventional': 16.2.1
   '@washingtondc/development': 1.0.10_typescript@4.5.5
   cz-emoji-conventional: 1.0.1
-  eslint-config-strict-mode: 1.0.41_typescript@4.5.5
+  eslint-config-strict-mode: 1.0.43_typescript@4.5.5
   git-cz-emoji: 1.1.24
   handlebars-helpers: 0.10.0
   prettier-config-sexy-mode: 1.0.1_typescript@4.5.5
@@ -111,7 +111,7 @@ packages:
       '@babel/compat-data': 7.17.0
       '@babel/core': 7.17.5
       '@babel/helper-validator-option': 7.16.7
-      browserslist: 4.19.2
+      browserslist: 4.19.3
       semver: 6.3.0
     dev: true
 
@@ -2208,8 +2208,8 @@ packages:
       fill-range: 7.0.1
     dev: true
 
-  /browserslist/4.19.2:
-    resolution: {integrity: sha512-97XU1CTZ5TwU9Qy/Taj+RtiI6SQM1WIhZ9osT7EY0oO2aWXGABZT2OZeRL+6PfaQsiiMIjjwIoYFPq4APgspgQ==}
+  /browserslist/4.19.3:
+    resolution: {integrity: sha512-XK3X4xtKJ+Txj8G5c30B4gsm71s69lqXlkYui4s6EkKxuv49qjYlY6oVd+IFJ73d4YymtM3+djvvt/R/iJwwDg==}
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
@@ -3430,8 +3430,8 @@ packages:
       eslint: 8.9.0
     dev: true
 
-  /eslint-config-strict-mode/1.0.41_typescript@4.5.5:
-    resolution: {integrity: sha512-dodnJvuUF3LEwF+7GJai6PMBB/Qqgd2CYJqwD1TCRkkS72zYZ2vJWkMfpQ/KPUH4kbXRnsiZUAlBOY5/c7ThFA==}
+  /eslint-config-strict-mode/1.0.43_typescript@4.5.5:
+    resolution: {integrity: sha512-DdyqZIbpoCgcbKoAMDir/a3b/nHdDe0lcLr6P1QLjEcoZvaQsKTXTUb4obp8m1v6HLqFzj9RUksfVlCzHeo2uA==}
     engines: {node: '>=14.18.0'}
     dependencies:
       '@typescript-eslint/eslint-plugin': 5.12.0_c467cf9bb49b295941e83ce479a578b7
