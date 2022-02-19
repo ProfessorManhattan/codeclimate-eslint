@@ -255,7 +255,7 @@
   },
   "scriptsBuild": "task docker:build",
   "scriptsHelp": "task --menu",
-  "scriptsPrepare": "npm run start && task common:husky",
+  "scriptsPrepare": "npm run start && (test -f Taskfile.yml && task common:husky) || true",
   "scriptsStart": "bash start.sh",
   "scriptsTest": "task docker:test",
   "sharp_instructions": [],
