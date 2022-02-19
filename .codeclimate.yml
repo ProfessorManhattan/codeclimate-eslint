@@ -1,7 +1,18 @@
 ---
-engines:
+version: '2'
+
+plugins:
   eslint:
     enabled: true
-exclude_paths:
-  - 'node_modules/**'
-  - 'test/**'
+
+exclude_patterns:
+  - .common/
+  - .config/
+  - .go/
+  - .modules/
+  - .pnpm-store/
+  - .venv/
+  - deprecated/
+  - test-output/
+  - venv/
+  - _generated_/

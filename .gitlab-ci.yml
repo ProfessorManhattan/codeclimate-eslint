@@ -24,3 +24,16 @@ include:
   - remote: https://gitlab.com/megabyte-labs/gitlab-ci/-/raw/master/publish/semantic-release.gitlab-ci.yml
   - remote: https://gitlab.com/megabyte-labs/gitlab-ci/-/raw/master/test/docker/slim.gitlab-ci.yml
   - remote: https://gitlab.com/megabyte-labs/gitlab-ci/-/raw/master/update/project.gitlab-ci.yml
+
+integration:standalone:
+  image:
+    name: megabytelabs/eslint:slim
+    entrypoint: ['']
+  script:
+    - pnpm install eslint-config-strict-mode@latest
+    - pnpx eslint -c package.json --no-eslintrc --format gitlab .
+
+integration:codeclimate:
+  image: megabytelabs/codeclimate:slim
+  script:
+    - task lint:codeclimate

@@ -22,14 +22,8 @@
   "source_image": {
     "identity": {
       "id": "sha256:8ba0c715991b0cb5bdc1251b23d1ab922094992bb059edcf5d0642e0a00e6702",
-      "tags": [
-        "latest",
-        "latest"
-      ],
-      "names": [
-        "codeclimate/codeclimate-eslint:latest",
-        "megabytelabs/codeclimate-eslint:latest"
-      ]
+      "tags": ["latest", "latest"],
+      "names": ["codeclimate/codeclimate-eslint:latest", "megabytelabs/codeclimate-eslint:latest"]
     },
     "size": 528711598,
     "size_human": "529 MB",
@@ -38,9 +32,7 @@
     "architecture": "amd64",
     "user": "app",
     "os": "linux",
-    "volumes": [
-      "/code"
-    ],
+    "volumes": ["/code"],
     "labels": {
       "maintainer": "Megabyte Labs <help@megabyte.space>",
       "org.opencontainers.image.authors": "Brian Zalewski <brian@megabyte.space>",
@@ -83,9 +75,7 @@
       "full_name": "node:17-alpine",
       "repo_name": "node",
       "version_tag": "17-alpine",
-      "raw_tags": [
-        "node:17-alpine"
-      ],
+      "raw_tags": ["node:17-alpine"],
       "create_time": "2022-02-11T01:25:01Z",
       "new_size": 170430836,
       "new_size_human": "170 MB",
@@ -243,9 +233,7 @@
           "params": "[\"node\"]",
           "command_snippet": "CMD [\"node\"]",
           "command_all": "CMD [\"node\"]",
-          "raw_tags": [
-            "node:17-alpine"
-          ]
+          "raw_tags": ["node:17-alpine"]
         }
       ]
     },
@@ -255,10 +243,7 @@
       "full_name": "codeclimate/codeclimate-eslint:latest",
       "repo_name": "codeclimate/codeclimate-eslint",
       "version_tag": "latest",
-      "raw_tags": [
-        "codeclimate/codeclimate-eslint:latest",
-        "megabytelabs/codeclimate-eslint:latest"
-      ],
+      "raw_tags": ["codeclimate/codeclimate-eslint:latest", "megabytelabs/codeclimate-eslint:latest"],
       "create_time": "2022-02-19T04:15:34Z",
       "new_size": 358280762,
       "new_size_human": "358 MB",
@@ -275,9 +260,7 @@
           "params": "/usr/src/app",
           "command_snippet": "WORKDIR /usr/src/app",
           "command_all": "WORKDIR /usr/src/app",
-          "system_commands": [
-            "mkdir -p /usr/src/app"
-          ]
+          "system_commands": ["mkdir -p /usr/src/app"]
         },
         {
           "type": "ENV",
@@ -368,9 +351,7 @@
           "size": 0,
           "command_snippet": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
           "command_all": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
-          "system_commands": [
-            "[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"
-          ]
+          "system_commands": ["[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"]
         },
         {
           "type": "RUN",
@@ -400,9 +381,7 @@
           "size_human": "1.9 MB",
           "command_snippet": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
           "command_all": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
-          "system_commands": [
-            "[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"
-          ]
+          "system_commands": ["[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"]
         },
         {
           "type": "RUN",
@@ -416,9 +395,7 @@
           "size_human": "2.0 MB",
           "command_snippet": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\",\"chown...",
           "command_all": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\",\"chown\",\"-R\",\"app:app\",\"./\"]",
-          "system_commands": [
-            "[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\",\"chown\",\"-R\",\"app:app\",\"./\"]"
-          ]
+          "system_commands": ["[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\",\"chown\",\"-R\",\"app:app\",\"./\"]"]
         },
         {
           "type": "RUN",
@@ -431,9 +408,7 @@
           "size": 0,
           "command_snippet": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
           "command_all": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
-          "system_commands": [
-            "[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"
-          ]
+          "system_commands": ["[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"]
         },
         {
           "type": "RUN",
@@ -446,9 +421,7 @@
           "size": 0,
           "command_snippet": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
           "command_all": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
-          "system_commands": [
-            "[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"
-          ]
+          "system_commands": ["[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"]
         },
         {
           "type": "RUN",
@@ -461,9 +434,7 @@
           "size": 0,
           "command_snippet": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
           "command_all": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
-          "system_commands": [
-            "[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"
-          ]
+          "system_commands": ["[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"]
         },
         {
           "type": "RUN",
@@ -476,9 +447,7 @@
           "size": 0,
           "command_snippet": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
           "command_all": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
-          "system_commands": [
-            "[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"
-          ]
+          "system_commands": ["[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"]
         },
         {
           "type": "RUN",
@@ -491,9 +460,7 @@
           "size": 0,
           "command_snippet": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
           "command_all": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
-          "system_commands": [
-            "[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"
-          ]
+          "system_commands": ["[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"]
         },
         {
           "type": "RUN",
@@ -506,9 +473,7 @@
           "size": 0,
           "command_snippet": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
           "command_all": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
-          "system_commands": [
-            "[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"
-          ]
+          "system_commands": ["[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"]
         },
         {
           "type": "RUN",
@@ -521,9 +486,7 @@
           "size": 0,
           "command_snippet": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
           "command_all": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
-          "system_commands": [
-            "[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"
-          ]
+          "system_commands": ["[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"]
         },
         {
           "type": "RUN",
@@ -536,9 +499,7 @@
           "size": 0,
           "command_snippet": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
           "command_all": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
-          "system_commands": [
-            "[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"
-          ]
+          "system_commands": ["[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"]
         },
         {
           "type": "RUN",
@@ -551,9 +512,7 @@
           "size": 0,
           "command_snippet": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
           "command_all": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
-          "system_commands": [
-            "[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"
-          ]
+          "system_commands": ["[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"]
         },
         {
           "type": "RUN",
@@ -566,9 +525,7 @@
           "size": 0,
           "command_snippet": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
           "command_all": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
-          "system_commands": [
-            "[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"
-          ]
+          "system_commands": ["[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"]
         },
         {
           "type": "RUN",
@@ -581,9 +538,7 @@
           "size": 0,
           "command_snippet": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
           "command_all": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
-          "system_commands": [
-            "[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"
-          ]
+          "system_commands": ["[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"]
         },
         {
           "type": "RUN",
@@ -596,9 +551,7 @@
           "size": 0,
           "command_snippet": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
           "command_all": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
-          "system_commands": [
-            "[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"
-          ]
+          "system_commands": ["[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"]
         },
         {
           "type": "RUN",
@@ -611,9 +564,7 @@
           "size": 0,
           "command_snippet": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
           "command_all": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
-          "system_commands": [
-            "[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"
-          ]
+          "system_commands": ["[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"]
         },
         {
           "type": "RUN",
@@ -626,9 +577,7 @@
           "size": 0,
           "command_snippet": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
           "command_all": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
-          "system_commands": [
-            "[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"
-          ]
+          "system_commands": ["[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"]
         },
         {
           "type": "RUN",
@@ -641,9 +590,7 @@
           "size": 0,
           "command_snippet": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
           "command_all": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
-          "system_commands": [
-            "[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"
-          ]
+          "system_commands": ["[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"]
         },
         {
           "type": "RUN",
@@ -656,9 +603,7 @@
           "size": 0,
           "command_snippet": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
           "command_all": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
-          "system_commands": [
-            "[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"
-          ]
+          "system_commands": ["[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"]
         },
         {
           "type": "RUN",
@@ -671,9 +616,7 @@
           "size": 0,
           "command_snippet": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
           "command_all": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
-          "system_commands": [
-            "[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"
-          ]
+          "system_commands": ["[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"]
         },
         {
           "type": "RUN",
@@ -686,9 +629,7 @@
           "size": 0,
           "command_snippet": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
           "command_all": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
-          "system_commands": [
-            "[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"
-          ]
+          "system_commands": ["[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"]
         },
         {
           "type": "RUN",
@@ -701,13 +642,8 @@
           "size": 0,
           "command_snippet": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
           "command_all": "RUN [\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]",
-          "system_commands": [
-            "[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"
-          ],
-          "raw_tags": [
-            "codeclimate/codeclimate-eslint:latest",
-            "megabytelabs/codeclimate-eslint:latest"
-          ]
+          "system_commands": ["[\"/bin/ash\",\"-eo\",\"pipefail\",\"-c\"]"],
+          "raw_tags": ["codeclimate/codeclimate-eslint:latest", "megabytelabs/codeclimate-eslint:latest"]
         }
       ]
     }
