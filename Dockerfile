@@ -2,10 +2,10 @@ FROM node:17-alpine AS codeclimate-eslint
 
 WORKDIR /usr/src/app
 
-ENV PREFIX "/usr/local/node_modules"
-ENV PATH "$PREFIX/bin:$PATH"
-ENV NODE_PATH "$PREFIX"
-ENV NPM_CONFIG_PREFIX "$PREFIX"
+ENV PREFIX=/usr/local/node_modules
+ENV PATH=$PREFIX/bin:$PATH
+ENV NODE_PATH=$PREFIX
+ENV NPM_CONFIG_PREFIX=$PREFIX
 
 COPY bin/docs ./bin/docs
 COPY local/engine.json package.json start.sh yarn.lock ./
@@ -42,32 +42,32 @@ ARG BUILD_DATE
 ARG REVISION
 ARG VERSION
 
-LABEL maintainer "Megabyte Labs <help@megabyte.space>"
+LABEL maintainer="Megabyte Labs <help@megabyte.space>"
 LABEL org.opencontainers.image.authors="Brian Zalewski <brian@megabyte.space>"
-LABEL org.opencontainers.image.created "$BUILD_DATE"
+LABEL org.opencontainers.image.created=$BUILD_DATE
 LABEL org.opencontainers.image.description="An ESLint 8 slim container and a CodeClimate engine container for GitLab CI"
 LABEL org.opencontainers.image.documentation="https://github.com/ProfessorManhattan/codeclimate-eslint/blob/master/README.md"
 LABEL org.opencontainers.image.licenses="MIT"
-LABEL org.opencontainers.image.revision "$REVISION"
-LABEL org.opencontainers.image.source "https://gitlab.com/megabyte-labs/docker/codeclimate/eslint.git"
-LABEL org.opencontainers.image.url "https://megabyte.space"
-LABEL org.opencontainers.image.vendor "Megabyte Labs"
-LABEL org.opencontainers.image.version "$VERSION"
-LABEL space.megabyte.type "code-climate"
+LABEL org.opencontainers.image.revision=$REVISION
+LABEL org.opencontainers.image.source="https://gitlab.com/megabyte-labs/docker/codeclimate/eslint.git"
+LABEL org.opencontainers.image.url="https://megabyte.space"
+LABEL org.opencontainers.image.vendor="Megabyte Labs"
+LABEL org.opencontainers.image.version=$VERSION
+LABEL space.megabyte.type="code-climate"
 
-#FROM codeclimate-eslint AS eslint
+FROM codeclimate-eslint AS eslint
 
-#VOLUME /work
-#WORKDIR /work
+VOLUME /work
+WORKDIR /work
 
-#USER root
+USER root
 
-#RUN rm -rf /usr/src/app \
-#  && rm -f /engine.json
+RUN rm -rf /usr/src/app \
+  && rm -f /engine.json
 
-#USER app
+USER app
 
-#ENTRYPOINT ["pnpx", "eslint"]
-#CMD ["--version"]
+ENTRYPOINT ["pnpx eslint"]
+CMD ["--version"]
 
-#LABEL space.megabyte.type="code-climate-standalone"
+LABEL space.megabyte.type="code-climate-standalone"
