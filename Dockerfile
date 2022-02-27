@@ -2,33 +2,27 @@ FROM node:17-alpine AS codeclimate-eslint
 
 WORKDIR /usr/src/app
 
-ARG ESLINT_VERSION=8.9.0
+ARG ESLINT_VERSION=8.10.0
 
-ENV PREFIX=/usr/local/node_modules
+ENV PREFIX=/usr/src/app/node_modules
 ENV PATH=$PREFIX/.bin:$PREFIX/bin:$PATH
-ENV NODE_PATH=$PREFIX
-ENV NPM_CONFIG_PREFIX=$PREFIX
 
 COPY bin ./bin
-COPY lib ./lib
 COPY test ./test
-COPY local/engine.json local/package.json ./
+COPY local/engine.json ./
 
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 RUN adduser --uid 9000 --gecos "" --disabled-password app \
-    && mkdir $PREFIX \
     && apk --no-cache add --virtual build-dependencies \
       bash=~5 \
       git=~2 \
       jq=~1 \
     && npm i -g pnpm@latest \
-    && pnpm config set global-dir "$PREFIX" \
-    && pnpm install --modules-dir "$PREFIX" \
-    && chown -R app:app "$PREFIX" \
+    && pnpm install eslint  eslint-formatter-gitlab\
     && VERSION="v${ESLINT_VERSION}" \
     && ./bin/docs "$VERSION" \
     && jq --arg version "$VERSION" '.version = $version' > /engine.json < ./engine.json \
-    && apk del build-dependencies \
+    #&& apk del build-dependencies \
     && chown -R app:app ./
 
 USER app
@@ -36,7 +30,8 @@ USER app
 VOLUME ["/code"]
 WORKDIR /code
 
-CMD ["/usr/src/app/bin/eslint.js"]
+
+CMD ["/usr/src/app/bin/codeclimate-eslint","/config.json","/code"]
 
 ARG BUILD_DATE
 ARG REVISION
