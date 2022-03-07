@@ -3,21 +3,21 @@ schemaVersion: 2.0.0
 
 commandTests:
   - name: Should successfully run ESLint when configuration is in a .eslintrc.json file
-    setup: [[cd ./test/basic-test]]
+    setup: [["cd", "/work/test/basic-test"]]
     command: codeclimate-eslint
     args:
       - config.json
       - ./src
     expectedOutput: ['.*Missing semicolon.*', '.*Unexpected console statement.*']
-    teardown: [cd ../..]
+    teardown: [["cd", "../.."]]
   - name: Should successfully run ESLint when configuration is stored in package.json as a module
-    setup: [[cd ./test/package-config]]
+    setup: [["cd", "/work/test/package-config"]]
     command: codeclimate-eslint
     args:
       - package.json
       - ./src/main.ts
     expectedOutput: ['*/package-config/src/main.ts.*', '.*no-magic-numbers.*']
-    teardown: [[cd ../..]]
+    teardown: [["cd", "../.."]]
 
 metadataTest:
   labels:
