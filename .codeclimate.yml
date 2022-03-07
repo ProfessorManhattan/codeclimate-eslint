@@ -2,10 +2,6 @@
 version: '2'
 
 plugins:
-  structure:
-    enabled: false
-  duplication:
-    enabled: false
   eslint:
     enabled: true
 

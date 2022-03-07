@@ -236,7 +236,7 @@ export DOCKERHUB_USERNAME=Your_DockerHub_Username_Here
 export DOCKERHUB_PASSWORD=Your_DockerHub_Password_Here
 docker login -u "$DOCKERHUB_USERNAME" -p "$DOCKERHUB_PASSWORD" docker.io
 docker build -t "$DOCKERHUB_USERNAME/eslint:latest" .
-docker-slim build --tag $DOCKERHUB_USERNAME/eslint:slim * **codeclimate-eslint**: --http-probe=false --exec '/usr/src/app/bin/codeclimate-eslint /usr/src/app/test/codeclimate/config.json /code' --mount "$(echo '$PWD')/test/basic-test:/code" --workdir '/code' --preserve-path-file './local/paths.codeclimate-eslint.txt'
+docker-slim build --tag $DOCKERHUB_USERNAME/eslint:slim * **codeclimate-eslint**: --http-probe=false --exec 'codeclimate-eslint package.json .' --mount "$(echo '$PWD')/test/basic-test:/code" --workdir '/code' --preserve-path-file './local/paths.codeclimate-eslint.txt'
 * **eslint**: --http-probe=false --exec 'eslint --help' --preserve-path-file './local/paths.eslint.txt' $DOCKERHUB_USERNAME/eslint:latest
 docker push "$DOCKERHUB_USERNAME/eslint:slim"
 ```

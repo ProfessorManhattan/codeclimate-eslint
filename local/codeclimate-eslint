@@ -1,0 +1,57 @@
+#!/usr/bin/env sh
+
+# @file /usr/local/bin/codeclimate-eslint
+# @brief Wraps ESLint to provide configuration capabilities and to output in GitLab CI CodeClimate format
+# @description
+#   This script is used by an ESLint CodeClimate engine to output the linting results
+#   in a format that is digestible by GitLab CI. Unlike the official ESLint CodeClimate
+#   engine, it is not static. With it, you can use any ESLint configuration including
+#   dynamic modules defined in `package.json` and stored in a seperate NPM package.
+#
+# @arg $1 string The ESLint CodeClimate configuration file
+# @arg $2 string The directory to lint
+
+# @description Assign input arguments to named variables
+CONFIG_FILE="$1"
+CODE_DIR="$2"
+
+# @description Read the configuration with jq and begin construction of the ESLint command
+if [ -f "$CONFIG_FILE" ]; then
+  IGNORE_WARNINGS="$(jq -r ".ignore_warnings | select( . != null )" "${CONFIG_FILE}")"
+  EXTENSIONS="$(jq  -r  '.extensions | select( . != null ) | join(",")' "${CONFIG_FILE}")"
+fi
+COMMAND="eslint --format json"
+
+# @description Ignore warnings, if specified in the configuration
+if [ "${IGNORE_WARNINGS}" = "true" ]; then
+  # shellcheck disable=SC2116
+   COMMAND="$(echo "${COMMAND} --quiet")"
+fi
+
+# @description Restrict the linting to the extensions specified in the configuration, if specified
+if [ -n "$EXTENSIONS" ]; then
+  # shellcheck disable=SC2116
+  COMMAND="$(echo "${COMMAND} --ext ${EXTENSIONS}")"
+fi
+
+# @description Install configuration module if it is stored in an NPM module
+if [ -f package.json ]; then
+  NPM_CONFIG="$(jq -r '.eslintConfig.extends' package.json)"
+  if [ "$NPM_CONFIG" != 'null' ]; then
+    pnpm i "$NPM_CONFIG"
+    # shellcheck disable=SC2116
+    COMMAND="$(echo "${COMMAND} --no-eslintrc -c package.json")"
+  fi
+fi
+
+# @description Install Prettier module if it is stored in an NPM module
+if [ -f package.json ]; then
+  PRETTIER_CONFIG="$(jq -r '.prettier' package.json)"
+  if [ "$PRETTIER_CONFIG" != 'null' ]; then
+    pnpm i "$PRETTIER_CONFIG"
+  fi
+fi
+
+# @description Output the linting results in GitLab CI CodeClimate format
+OUTPUT="$(${COMMAND} "${CODE_DIR}")"
+echo "${OUTPUT}" | jq  --compact-output '.[] | .messages[] as $in | {  type: "issue",check_name: $in.ruleId , categories: ["Style"] , description: $in.message  , location: { path : .filePath|sub("^/code";".") , positions : { begin : {line: $in.line, column: $in.column}, end : {line: $in.line, column: $in.column}} }}' | tr '\n' '\0'

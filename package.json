@@ -84,15 +84,15 @@
     ],
     "description": "An ESLint 8 slim container and a CodeClimate engine container for GitLab CI",
     "dockerLatestSize": {
-      "codeclimate-eslint": "66M",
-      "eslint": "66M"
+      "codeclimate-eslint": "60M",
+      "eslint": "60M"
     },
     "dockerSlimCommand": {
-      "codeclimate-eslint": "--http-probe=false --exec '/usr/src/app/bin/codeclimate-eslint /usr/src/app/test/codeclimate/config.json /code' --mount \"$(echo '$PWD')/test/basic-test:/code\" --workdir '/code' --preserve-path-file './local/paths.codeclimate-eslint.txt'",
+      "codeclimate-eslint": "--http-probe=false --exec 'codeclimate-eslint package.json .' --mount \"$(echo '$PWD')/test/basic-test:/code\" --workdir '/code' --preserve-path-file './local/paths.codeclimate-eslint.txt'",
       "eslint": "--http-probe=false --exec 'eslint --help' --preserve-path-file './local/paths.eslint.txt'"
     },
     "dockerSlimSize": {
-      "codeclimate-eslint": "38M",
+      "codeclimate-eslint": "33M",
       "eslint": "33M"
     },
     "github_id": "R_kgDOG3hNcQ",

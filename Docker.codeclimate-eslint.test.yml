@@ -2,19 +2,22 @@
 schemaVersion: 2.0.0
 
 commandTests:
-  - name: .eslintrc.json
-    command: /usr/src/app/bin/codeclimate-eslint
-    args: [/usr/src/app/test/codeclimate/config.json, /usr/src/app/test/basic-test]
-    expectedOutput: ['.*Missing semicolon.*', '.*Unexpected console statement.*']
-  - name: Shared configuration stored in package.json
-    command: sh
+  - name: Should successfully run ESLint when configuration is in a .eslintrc.json file
+    setup: [["cd ./test/basic-test"]]
+    command: codeclimate-eslint
     args:
-      - -c
-      - |
-        cd /usr/src/app/test/package-config &&
-        pnpm install &&
-        /usr/src/app/bin/codeclimate-eslint /usr/src/app/test/codeclimate/config.json /usr/src/app/test/package-config
-    expectedOutput: ['.path":"/usr/src/app/test/package-config/src/main.ts.*', '.*eslint-config-strict-mode.*']
+      - config.json
+      - ./src
+    expectedOutput: ['.*Missing semicolon.*', '.*Unexpected console statement.*']
+    teardown: ["cd ../.."]
+  - name: Should successfully run ESLint when configuration is stored in package.json as a module
+    setup: [["cd ./test/package-config"]]
+    command: codeclimate-eslint
+    args:
+      - package.json
+      - ./src/main.ts
+    expectedOutput: ['*/package-config/src/main.ts.*', '.*no-magic-numbers.*']
+    teardown: [["cd ../.."]]
 
 metadataTest:
   labels:
