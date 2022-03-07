@@ -5,10 +5,9 @@ plugins:
   structure:
     enabled: false
   duplication:
-    enabled: false  
+    enabled: false
   eslint:
     enabled: true
-
 
 exclude_patterns:
   - .common/

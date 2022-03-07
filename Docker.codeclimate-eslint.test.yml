@@ -3,18 +3,18 @@ schemaVersion: 2.0.0
 
 commandTests:
   - name: .eslintrc.json
-    command: /usr/src/app/bin/codeclimate-eslint 
-    args: ["/usr/src/app/test/codeclimate/config.json","/usr/src/app/test/basic-test"]
+    command: /usr/src/app/bin/codeclimate-eslint
+    args: [/usr/src/app/test/codeclimate/config.json, /usr/src/app/test/basic-test]
     expectedOutput: ['.*Missing semicolon.*', '.*Unexpected console statement.*']
   - name: Shared configuration stored in package.json
-    command: "sh"
-    args: 
+    command: sh
+    args:
       - -c
-      -  |
+      - |
         cd /usr/src/app/test/package-config &&
         pnpm install &&
         /usr/src/app/bin/codeclimate-eslint /usr/src/app/test/codeclimate/config.json /usr/src/app/test/package-config
-    expectedOutput: ['.path":"/usr/src/app/test/package-config/src/main.ts.*',".*eslint-config-strict-mode.*"]
+    expectedOutput: ['.path":"/usr/src/app/test/package-config/src/main.ts.*', '.*eslint-config-strict-mode.*']
 
 metadataTest:
   labels:
