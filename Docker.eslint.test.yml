@@ -3,10 +3,12 @@ schemaVersion: 2.0.0
 
 commandTests:
   - name: Test --version
-    command: pnpx eslint --version
+    setup: [["eslint"]]  
+    command: --version
     exitCode: 0
   - name: Test --help
-    command: pnpx eslint --help
+    setup: [["eslint"]]  
+    command: --help
     exitCode: 0
 
 metadataTest:
@@ -17,4 +19,5 @@ metadataTest:
       value: code-climate-standalone
   volumes: [/work]
   workdir: /work
+  entrypoint: ['eslint']
   user: app

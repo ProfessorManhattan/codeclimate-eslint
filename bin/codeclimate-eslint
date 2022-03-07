@@ -1,0 +1,27 @@
+#!/usr/bin/env sh
+
+CONFIG_FILE=$1
+CODE_DIR=$2
+
+ignore_warnings="$(jq -r ".ignore_warnings | select( . != null )" ${CONFIG_FILE})"
+extensions="$(jq  -r  '.extensions | select( . != null )| join(",")' ${CONFIG_FILE})"
+
+command="eslint --format json"
+
+
+if [ "${ignore_warnings}" = "true" ]; then
+   command="$(echo "${command} --quiet")"
+fi
+
+
+if [ -n "$extensions" ]; then
+    command="$(echo "${command} --ext ${extensions}")"
+fi
+
+output=`${command} ${CODE_DIR}`
+
+echo ${output} | jq  --compact-output '.[] | .messages[] as $in | {  type: "issue",check_name: $in.ruleId , categories: ["Style"] , description: $in.message  , location: { path : .filePath|sub("^/code";".") , positions : { begin : {line: $in.line, column: $in.column}, end : {line: $in.line, column: $in.column}} }}' | tr '\n' '\0'
+
+
+
+
