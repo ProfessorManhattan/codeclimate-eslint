@@ -92,7 +92,9 @@ tasks:
           cat .dockerignore | sed -n '/# Saved entries below/,$p' | sed 's/# Saved entries below//' | awk 'NF' >> "$TMP"
           mv "$TMP" .dockerignore
         elif [ '{{.PROJECT_TYPE}}' == 'project' ]; then
-          rm .config/dockerignore
+          if [ -f .config/dockerignore ]; then
+            rm .config/dockerignore
+          fi
         fi
       - task: :common:{{if eq .CONTAINER "docker"}}husky:ci{{else}}husky{{end}}
       - task: :{{if eq .REPOSITORY_SUBTYPE "role"}}ansible:keywords:sync{{else}}donothing{{end}}
@@ -213,7 +215,7 @@ tasks:
       - task: markdown:scrub
         vars:
           SCRUB_FILE: README.md
-      - task: ':{{if eq .REPOSITORY_TYPE "packer"}}{{if eq .REPOSITORY_SUBTYPE "server"}}packer:update:readme{{else}}donothing{{end}}{{else}}donothing{{end}}'
+      - task: ':{{if eq .REPOSITORY_TYPE "packer"}}packer:update:readme{{else}}donothing{{end}}'
       - '{{.NPX_HANDLE}}prettier --write README.md > /dev/null'
     sources:
       - .autodoc/*
@@ -249,7 +251,7 @@ tasks:
   update:
     deps:
       - ':{{if eq .REPOSITORY_SUBTYPE "role"}}common:update:ansible{{else}}donothing{{end}}'
-      - ':{{if eq .REPOSITORY_TYPE "packer"}}packer:latestos{{else}}donothing{{end}}'
+      - ':{{if eq .REPOSITORY_TYPE "packer"}}{{if eq .REPOSITORY_SUBTYPE "server"}}packer:latestos{{else}}donothing{{end}}{{else}}donothing{{end}}'
       - init
       - repositories
     summary: |
