@@ -113,7 +113,8 @@
     },
     "slug": "eslint",
     "subgroup": "codeclimate",
-    "title": "ESLint v8.x.x CodeClimate Engine"
+    "title": "ESLint v8.x.x CodeClimate Engine",
+    "versionCommand": "docker run -it megabytelabs/eslint:latest --version | sed 's/^v//'"
   },
   "changelog": {
     "displayTypes": [
