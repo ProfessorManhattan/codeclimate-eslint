@@ -1459,8 +1459,8 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
-  /ansi-regex/4.1.0:
-    resolution: {integrity: sha512-1apePfXM1UOSqw0o9IiFAovVz9M5S1Dg+4TrDwfMewQ6p/rmMueb7tWZjQ1rx4Loy1ArBggoqGpfqqdI4rondg==}
+  /ansi-regex/4.1.1:
+    resolution: {integrity: sha512-ILlv4k/3f6vfQ4OoP2AGvirOktlQ98ZEL1k9FaQjxa3L1abBgbuTDAdPOpvbGncC0BTVQrl+OM8xZGK6tWXt7g==}
     engines: {node: '>=6'}
     dev: true
 
@@ -6639,7 +6639,7 @@ packages:
       prettier-plugin-go-template: 0.0.11_prettier@2.5.1
       prettier-plugin-ini: 0.3.1
       prettier-plugin-java: 1.6.1
-      prettier-plugin-jsdoc: 0.3.30_prettier@2.5.1
+      prettier-plugin-jsdoc: 0.3.31_prettier@2.5.1
       prettier-plugin-organize-imports: 2.3.4_prettier@2.5.1+typescript@4.6.2
       prettier-plugin-package-perfection: 1.0.6
       prettier-plugin-properties: 0.1.0_prettier@2.5.1
@@ -6698,8 +6698,8 @@ packages:
       prettier: 2.3.1
     dev: true
 
-  /prettier-plugin-jsdoc/0.3.30_prettier@2.5.1:
-    resolution: {integrity: sha512-BTBojOMmrUA1qsWLpJN5whUfU/E72WBUQAB5AvrDkha+O8TxmqaAivnuW+87ItYGRPBFWWzj2r5iWELhBml1Ag==}
+  /prettier-plugin-jsdoc/0.3.31_prettier@2.5.1:
+    resolution: {integrity: sha512-/YDoJtEwPLRU4fKKjsWqqWHGII4AEzmNsnLglIDxj3iduWeVinT+fjKyez/eHq4oaawqXVt8JxNpbm5WVakN1Q==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
       prettier: '>=2.1.2'
@@ -7713,7 +7713,7 @@ packages:
     resolution: {integrity: sha512-DuRs1gKbBqsMKIZlrffwlug8MHkcnpjs5VPmL1PAh+mA30U0DTotfDZ0d2UUsXpPmPmMMJ6W773MaA3J+lbiWA==}
     engines: {node: '>=6'}
     dependencies:
-      ansi-regex: 4.1.0
+      ansi-regex: 4.1.1
     dev: true
 
   /strip-ansi/6.0.1:

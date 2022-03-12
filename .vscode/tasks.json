@@ -352,6 +352,11 @@
       "command": "bash start.sh && task nest:benchmark"
     },
     {
+      "label": "(new:project): Create a new project",
+      "type": "shell",
+      "command": "bash start.sh && task new:project"
+    },
+    {
       "label": "(npm:build): Build the application",
       "type": "shell",
       "command": "bash start.sh && task npm:build"
