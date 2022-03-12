@@ -58,7 +58,7 @@
       "The subgroup is found by looking at the second to last part of the URL of the repository (e.g. for Ansible Lint the subgroup would be `ci-pipeline`)."
     ]
   ],
-  "codeClimateSpecVersion": "0.0.1",
+  "codeClimateSpecVersion": "0.3.1",
   "commit_help_url": "https://megabyte.space/docs/contributing/commit-guidelines",
   "company": "Megabyte LLC",
   "copyright": "2020-2021",
