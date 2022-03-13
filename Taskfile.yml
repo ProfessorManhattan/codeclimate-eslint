@@ -108,8 +108,22 @@ vars:
   PROJECT_TYPE: project
   PYTHON_HANDLE: 'poetry run '
   PYTHON_VIRTUALENV: true
-  REPOSITORY_SUBTYPE: codeclimate
-  REPOSITORY_TYPE: docker
+  REPOSITORY_SUBTYPE:
+    sh: |
+      if type jq &> /dev/null && [ -f package.json ]; then
+        VER="$(jq -r '.blueprint.subgroup' package.json)"
+        if [ "$VER" == 'null' ]; then echo "codeclimate"; else echo "$VER"; fi
+      else
+        echo "codeclimate"
+      fi
+  REPOSITORY_TYPE:
+    sh: |
+      if type jq &> /dev/null && [ -f package.json ]; then
+        VER="$(jq -r '.blueprint.subgroup' package.json)"
+        if [ "$VER" == 'null' ]; then echo "docker"; else echo "$VER"; fi
+      else
+        echo "docker"
+      fi
   SEMANTIC_CONFIG: semantic-release-config
   TIMEZONE: America/New_York
 
@@ -298,10 +312,9 @@ tasks:
       - install:software:yq
     desc: Runs the initialization script
     summary: |
-      # Initialize the Project and Run the Full Update Sequence
+      # Initialize the Project
 
-      This command will mostly not be needed for pre-existing projects. This task begins
-      by calling a script that:
+      This command will mostly not be needed for pre-existing projects. This task:
 
       1. Migrates legacy projects
       2. Fixes common errors
@@ -323,16 +336,7 @@ tasks:
       success: Successfully bootstrapped project by running initialization script
     cmds:
       - git init
-      - |
-        TMP="$(mktemp)" && curl -sSL {{.MODEL_TASKFILE}} > "$TMP"
-        .config/log info 'Ensuring new additions to the model `Taskfile.yml` are present in the project `Taskfile.yml`'
-        yq eval-all -i 'select(fileIndex == 0) * select(fileIndex == 1)' "$TMP" Taskfile.yml
-      - |
-        if [ -n "$UPDATE_INIT_SCRIPT" ]; then
-          bash <(curl -sSL "$UPDATE_INIT_SCRIPT")
-        else
-          bash <(curl -sSL {{.INIT_SCRIPT}})
-        fi
+      - task: repair
       - task: ci:commit
       - task: ci:synchronize
 
