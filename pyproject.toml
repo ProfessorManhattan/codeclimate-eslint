@@ -64,7 +64,7 @@ license = "MIT"
 name = "codeclimate-eslint"
 readme = "README.md"
 repository = "https://github.com/ProfessorManhattan/codeclimate-eslint"
-version = "0.0.3"
+version = "8.11.0"
 
 [tool.poetry.dependencies]
 pip = { version = "^21.3.0", optional = true }
