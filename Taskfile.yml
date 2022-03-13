@@ -66,6 +66,7 @@ includes:
   release: ./.config/taskfiles/release/Taskfile.yml
   security: ./.config/taskfiles/security/Taskfile.yml
   symlink: ./.config/taskfiles/symlink/Taskfile.yml
+  update: ./.config/taskfiles/update/Taskfile.yml
   upstream: ./.config/taskfiles/upstream/Taskfile.yml
   upstream:common: ./.config/taskfiles/upstream/Taskfile-common.yml
   upstream:commondocs: ./.config/taskfiles/upstream/Taskfile-commondocs.yml
@@ -332,7 +333,7 @@ tasks:
         else
           bash <(curl -sSL {{.INIT_SCRIPT}})
         fi
-      - git push origin master
+      - task: ci:commit
       - task: ci:synchronize
 
   lint:
@@ -529,6 +530,36 @@ tasks:
         HUSKY=0 git commit -a --allow-empty -m '🔨 build(version bump): semantic-release {{.UPDATE_LEVEL}}' -n
       - task: publish
 
+  pull:upstream:
+    desc: Pull from upstream repositories
+    summary: |
+      # Pull Changes from Upstream Repositories
+
+      This task will do a `git pull` on each repository defined in `.blueprint.upstreamRemotes`.
+      The variable should be an array of objects where each object has the `remote`, `url`, and `branch` keys.
+
+      **Sample value of `.blueprint.upstreamRemotes`:**
+      `[{ "remote": "ionic", "url": "git@github.com:ionic-team/ionic-docs.git", "branch": "main" }]`
+    log:
+      error: Encountered error while running `git pull` on each of the `upstreamRemotes`
+      start: Running `git pull` on each of the `upstreamRemotes`
+      success: Successfully pulled from `upstreamRemotes`
+    cmds:
+      - task: common:update:upstream:remotes:pull
+
+  repair:
+    cmds:
+      - |
+        TMP="$(mktemp)" && curl -sSL {{.MODEL_TASKFILE}} > "$TMP"
+        .config/log info 'Ensuring new additions to the model `Taskfile.yml` are present in the project `Taskfile.yml`'
+        yq eval-all -i 'select(fileIndex == 0) * select(fileIndex == 1)' "$TMP" Taskfile.yml
+      - |
+        if [ -n "$UPDATE_INIT_SCRIPT" ]; then
+          bash <(curl -sSL "$UPDATE_INIT_SCRIPT")
+        else
+          bash <(curl -sSL {{.INIT_SCRIPT}})
+        fi
+
   reset:
     desc: Resets the project by removing all caches and then re-generating templated files
     summary: |
@@ -648,6 +679,7 @@ tasks:
 
   test:
     deps:
+      - install:software:jq
       - install:software:node
     interactive: true
     desc: Open an interactive dialog to select and run a Molecule test
@@ -667,5 +699,17 @@ tasks:
         fi
 
   update:
+    desc: Update the repository
+    log:
+      error: Failed to update the repository
+      start: Updating the repository..
+      success: Finished updating the repository
     cmds:
-      - task: init
+      - task: :install:software:brew
+      - |
+        . "$HOME/.profile"
+        task update:prereqs
+        . "$HOME/.profile"
+        task update:init
+        task prepare
+        task update:finish

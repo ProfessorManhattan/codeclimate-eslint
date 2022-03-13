@@ -29,7 +29,7 @@
     "lint": "bash start.sh && task list",
     "preload": "bash start.sh && task preload",
     "prepare": "bash start.sh && (test -f Taskfile.yml && task npm:prepare) || true",
-    "prepublishOnly": "test -z SKIP_NPM_PREPUBLISHONLY && bash start.sh && task npm:bundle:create || true",
+    "prepublishOnly": "test -z $SKIP_PREPUB && bash start.sh && task npm:bundle:create || true",
     "release": "bash start.sh && task publish:semantic-release",
     "repair": "bash <(curl -sS https://install.doctor/repair)",
     "start": "test -z SKIP_NPM_START && bash start.sh || true",
@@ -94,12 +94,12 @@
       "eslint": "61M"
     },
     "dockerSlimCommand": {
-      "codeclimate-eslint": "--http-probe=false --exec 'codeclimate-eslint package.json .' --mount \"$(echo '$PWD')/test/basic-test:/code\" --workdir '/code' --preserve-path-file './local/paths.codeclimate-eslint.txt'",
-      "eslint": "--http-probe=false --exec 'eslint --help' --preserve-path-file './local/paths.eslint.txt'"
+      "codeclimate-eslint": "--http-probe=false --exec 'pnpm --help && codeclimate-eslint package.json .' --mount \"$(echo '$PWD')/test/basic-test:/code\" --workdir '/code' --preserve-path-file './local/paths.codeclimate-eslint.txt'",
+      "eslint": "--http-probe=false --exec 'pnpm --help && pnpx --help && eslint --help' --preserve-path-file './local/paths.eslint.txt'"
     },
     "dockerSlimSize": {
-      "codeclimate-eslint": "33M",
-      "eslint": "33M"
+      "codeclimate-eslint": "35M",
+      "eslint": "34M"
     },
     "github_id": "R_kgDOG3hNcQ",
     "gitlab_group_id": "14556970",
