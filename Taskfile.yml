@@ -31,6 +31,7 @@ includes:
   go:test: ./.config/taskfiles/go/Taskfile-test.yml
   image: ./.config/taskfiles/image/Taskfile.yml
   install: ./.config/taskfiles/install/Taskfile.yml
+  install:ansible: ./.config/taskfiles/install/Taskfile-ansible.yml
   install:apt: ./.config/taskfiles/install/Taskfile-apt.yml
   install:github: ./.config/taskfiles/install/Taskfile-github.yml
   install:go: ./.config/taskfiles/install/Taskfile-go.yml
@@ -66,6 +67,7 @@ includes:
   release: ./.config/taskfiles/release/Taskfile.yml
   security: ./.config/taskfiles/security/Taskfile.yml
   symlink: ./.config/taskfiles/symlink/Taskfile.yml
+  ui: ./.config/taskfiles/ui/Taskfile.yml
   update: ./.config/taskfiles/update/Taskfile.yml
   upstream: ./.config/taskfiles/upstream/Taskfile.yml
   upstream:common: ./.config/taskfiles/upstream/Taskfile-common.yml
@@ -468,7 +470,9 @@ tasks:
       start: Preloading system with common dependencies
       success: Successfully preloaded system with common dependencies (REBOOT RECOMMENDED)
     cmds:
+      - task: install:software:common
       - task: install:brewfile
+      - task: install:extras
       - task: install:go:bundle
       - task: install:rust:bundle
       - task: install:github:bundle

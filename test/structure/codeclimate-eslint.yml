@@ -16,8 +16,7 @@ metadataTest:
     - key: maintainer
       value: Megabyte Labs <help@megabyte.space>
     - key: space.megabyte.type
-      value: code-climate-standalone
-  volumes: [/work]
-  workdir: /work
-  entrypoint: [eslint]
+      value: codeclimate
+  volumes: [/code]
+  workdir: /code
   user: app

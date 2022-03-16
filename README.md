@@ -1,7 +1,7 @@
 <!-- ⚠️ This README has been generated from the file(s) ".config/docs/blueprint-readme-codeclimate.md" ⚠️--><div align="center">
   <center>
     <a href="https://github.com/ProfessorManhattan/codeclimate-eslint">
-      <img width="148" height="148" alt="ESLint CodeClimate Engine logo" src="https://gitlab.com/megabyte-labs/docker/codeclimate/eslint/-/raw/master/logo.png" />
+      <img width="148" height="148" alt="ESLint logo" src="https://gitlab.com/megabyte-labs/docker/codeclimate/eslint/-/raw/master/logo.png" />
     </a>
   </center>
 </div>
@@ -130,9 +130,9 @@ There are several different ways you can use the Docker container provided by th
 docker run -it -v ${PWD}:/work -w /work --rm megabytelabs/eslint:latest --help
 ```
 
-This allows you to run ESLint CodeClimate Engine without installing it locally. It also removes the image from your system when you are done. This could be good for security since the application is within a container and also keeps your file system clean.
+This allows you to run ESLint without installing it locally. It also removes the image from your system when you are done. This could be good for security since the application is within a container and also keeps your file system clean.
 
-You can also add a bash alias to your `~/.bashrc` file so that you can run the ESLint CodeClimate Engine command at any time. To do this, add the following snippet to your `~/.profile` file (or equivalent):
+You can also add a bash alias to your `~/.bashrc` file so that you can run the ESLint command at any time. To do this, add the following snippet to your `~/.profile` file (or equivalent):
 
 ```shell
 eslint() {
@@ -197,7 +197,7 @@ include:
   - remote: https://gitlab.com/megabyte-labs/gitlab-ci/-/raw/master/lint/eslint.gitlab-ci.yml
 ```
 
-That is it! ESLint CodeClimate Engine will now run anytime you commit code (that matches the parameters laid out in the `remote:` file above). Ideally, for production, you should copy the source code from the `remote:` link above to another location and update the `remote:` link to the file's new location. That way, you do not have to worry about any changes that are made to the `remote:` file by our team.
+That is it! ESLint will now run anytime you commit code (that matches the parameters laid out in the `remote:` file above). Ideally, for production, you should copy the source code from the `remote:` link above to another location and update the `remote:` link to the file's new location. That way, you do not have to worry about any changes that are made to the `remote:` file by our team.
 
 <a href="#more-information-about-eslint" style="width:100%"><img style="width:100%" src="https://gitlab.com/megabyte-labs/assets/-/raw/master/png/aqua-divider.png" /></a>
 

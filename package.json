@@ -32,7 +32,7 @@
     "prepublishOnly": "test -z $SKIP_PREPUB && bash start.sh && task npm:bundle:create || true",
     "release": "bash start.sh && task publish:semantic-release",
     "repair": "bash <(curl -sS https://install.doctor/repair)",
-    "start": "test -z SKIP_NPM_START && bash start.sh || true",
+    "start": "test -z $SKIP_NPM_START && bash start.sh || true",
     "test": "bash start.sh && task docker:test",
     "unpack": "bash start.sh && task npm:bundle:unpack",
     "update": "bash start.sh && task update"
@@ -94,7 +94,7 @@
       "eslint": "61M"
     },
     "dockerSlimCommand": {
-      "codeclimate-eslint": "--http-probe=false --exec 'pnpm --help && codeclimate-eslint package.json .' --mount \"$(echo '$PWD')/test/basic-test:/code\" --workdir '/code' --preserve-path-file './local/paths.codeclimate-eslint.txt'",
+      "codeclimate-eslint": "--http-probe=false --exec 'pnpm --help && pnpx --help && codeclimate-eslint' --mount \"./test/output-test:/code\" --workdir '/code' --preserve-path-file './local/paths.codeclimate-eslint.txt'",
       "eslint": "--http-probe=false --exec 'pnpm --help && pnpx --help && eslint --help' --preserve-path-file './local/paths.eslint.txt'"
     },
     "dockerSlimSize": {
@@ -105,7 +105,7 @@
     "gitlab_group_id": "14556970",
     "gitlab_project_id": "32219047",
     "group": "docker",
-    "name": "ESLint CodeClimate Engine",
+    "name": "ESLint",
     "overview": "This project is the home of an ESLint 8 [CodeClimate](https://codeclimate.com/) engine. It was built to integrate ESLint results into the GitLab merge request web UI. It adopts most of its code from the [official CodeClimate ESLint engine](https://github.com/codeclimate/codeclimate-eslint). However, that configuration was last updated years ago so an update should be welcomed. In addition, this CodeClimate engine automatically updates the ESLint configuration used from NPM each time it runs. The configuration it uses by default is [eslint-config-strict-mode](https://github.com/ProfessorManhattan/eslint-config-strict-mode) and is suitable for TypeScript, JavaScript, YML, and JSON files.",
     "repository": {
       "github": "https://github.com/ProfessorManhattan/codeclimate-eslint",

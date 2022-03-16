@@ -1,0 +1,23 @@
+---
+schemaVersion: 2.0.0
+
+commandTests:
+  - name: Test --version
+    setup: [[eslint]]
+    command: --version
+    exitCode: 0
+  - name: Test --help
+    setup: [[eslint]]
+    command: --help
+    exitCode: 0
+
+metadataTest:
+  labels:
+    - key: maintainer
+      value: Megabyte Labs <help@megabyte.space>
+    - key: space.megabyte.type
+      value: linter
+  volumes: [/work]
+  workdir: /work
+  entrypoint: [eslint]
+  user: app

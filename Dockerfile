@@ -4,7 +4,6 @@ WORKDIR /work
 
 COPY local/codeclimate-eslint /usr/local/bin/codeclimate-eslint
 COPY local/engine.json ./engine.json
-COPY test ./
 
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 RUN adduser --uid 9000 --gecos "" --disabled-password app \
@@ -26,7 +25,7 @@ USER app
 VOLUME ["/code"]
 WORKDIR /code
 
-CMD ["codeclimate-eslint", "package.json", "/code"]
+CMD ["codeclimate-eslint"]
 
 ARG BUILD_DATE
 ARG REVISION
@@ -43,7 +42,7 @@ LABEL org.opencontainers.image.source="https://gitlab.com/megabyte-labs/docker/c
 LABEL org.opencontainers.image.url="https://megabyte.space"
 LABEL org.opencontainers.image.vendor="Megabyte Labs"
 LABEL org.opencontainers.image.version=$VERSION
-LABEL space.megabyte.type="code-climate"
+LABEL space.megabyte.type="codeclimate"
 
 FROM codeclimate-eslint AS eslint
 
@@ -60,4 +59,4 @@ USER app
 ENTRYPOINT ["eslint"]
 CMD ["--version"]
 
-LABEL space.megabyte.type="code-climate-standalone"
+LABEL space.megabyte.type="linter"
