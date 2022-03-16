@@ -17,8 +17,7 @@ RUN adduser --uid 9000 --gecos "" --disabled-password app \
     && VERSION="$(eslint -v | sed 's/^v//')" \
     && jq --arg version "$VERSION" '.version = $version' > /engine.json < ./engine.json \
     && rm ./engine.json \
-    && apk del build-deps \
-    && chown -R app:app ./
+    && apk del build-deps
 
 USER app
 
@@ -51,8 +50,7 @@ WORKDIR /work
 USER root
 
 RUN apk del codeclimate-deps \
-  && rm /engine.json \
-  && rm -rf *
+  && rm /engine.json
 
 USER app
 
