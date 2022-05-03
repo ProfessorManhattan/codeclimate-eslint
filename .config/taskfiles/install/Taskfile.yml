@@ -35,7 +35,7 @@ tasks:
         .config/log info 'Installing `{{.SOFTWARE}}` by running `curl -sS https://install.doctor/{{.SOFTWARE}} | bash`'
         curl -sS https://install.doctor/{{.SOFTWARE}} | bash
     status:
-      - type {{.SOFTWARE}} &> /dev/null || [[ "${container:=}" == "docker" ]]
+      - type {{.SOFTWARE}} &> /dev/null || [[ '{{.DOCKER_ENVIRONMENT}}' == "true" ]]
 
   modules:global:
     deps:
@@ -62,12 +62,16 @@ tasks:
       - '[[ "${container:=}" == "docker" ]]'
 
   modules:local:
+    cmds:
+      - task: modules:local:init
+    status:
+      - '[ -n "$BUILD_DATE" ] && [ -f /.dockerenv ]'
+
+  modules:local:init:
     deps:
       - :install:npm:{{.NPM_PROGRAM_LOCAL}}
       - :install:software:jq
-    env:
-      DEPS:
-        sh: jq -r -S '.dependencies + .devDependencies + .optionalDependencies + .peerDependencies' package.json
+    vars:
       PREVIOUS_DEPS:
         sh: |
           if [ -f .task/npm-deps ]; then
@@ -75,8 +79,12 @@ tasks:
           else
             echo ""
           fi
+    env:
+      DEPS:
+        sh: jq -r -S '.dependencies + .devDependencies + .optionalDependencies + .peerDependencies' package.json
+      PREVIOUS_DEPS: '{{.PREVIOUS_DEPS}}'
       SEMANTIC_PYTHON_POST_INSTALL: '{{if eq .SEMANTIC_RELEASE "true"}}true{{else}}false{{end}}'
-    run: once
+    run: when_changed
     log:
       error: Encountered error while installing local NPM dependencies
       start: Installing local NPM dependencies
@@ -125,6 +133,8 @@ tasks:
       - pnpm-lock.yaml
 
   modules:local:sync:
+    deps:
+      - modules:local
     log:
       error: Error while synchronizing `NPM_KEEP_UPDATED` packages with the latest version(s)
       start: Ensuring `NPM_KEEP_UPDATED` NPM packages are the latest version
@@ -185,7 +195,7 @@ tasks:
       start: Adding `$HOME/{{.PATH_STRING}}` to the PATH in $HOME/.profile
     cmds:
       - |
-        if [[ '{{.UNAME}}' == 'Darwin' ]] || [[ '{{.UNAME}}' == 'Linux' ]]; then
+        if [ '{{OS}}' == 'darwin' ] || [ '{{OS}}' == 'linux' ]; then
           # shellcheck disable=SC2016
           PATH_STRING='PATH="$HOME/{{.PATH_STRING}}:$PATH"'
           if ! grep "$PATH_STRING" "$HOME/.profile" > /dev/null; then
@@ -200,34 +210,6 @@ tasks:
           .config/log error "System type not recognized ($OSTYPE)"
         fi
 
-  pipx:bundle:
-    cmds:
-      - task: pipx:global
-
-  pipx:global:
-    deps:
-      - :install:software:pipx
-      - :install:software:yq
-    vars:
-      PIPX_PACKAGES: ansible-base ansible-lint ansibler black blocklint docker flake8
-        mod-ansible-autodoc molecule molecule-docker molecule-vagrant pre-commit-hooks
-        proselint python-vagrant pywinrm
-    log:
-      error: Error encountered while pre-loading common pipx packages
-      start: Pre-loading common pipx packages
-      success: Finished pre-loading common pipx packages
-    cmds:
-      - |
-        for PKG in {{.PIPX_PACKAGES}}; do
-          if ! type "$PKG" > /dev/null; then
-            .config/log info "Ensuring $PKG is installed"
-            pipx install "$PKG" &
-          else
-            .config/log info "$PKG is already installed"
-          fi
-        done
-        wait
-
   profile:add:
     log:
       error: Error modifying $HOME/.profile
@@ -235,7 +217,7 @@ tasks:
       success: Successfully modified $HOME/.profile
     cmds:
       - |
-        if [[ "$OSTYPE" == 'darwin'* ]] || [[ "$OSTYPE" == 'linux-gnu'* ]]; then
+        if [ '{{OS}}' == 'darwin' ] || [ '{{OS}}' == 'linux' ]; then
           # shellcheck disable=SC2016
           PROFILE_STRING='{{.PROFILE_STRING}}'
           if ! grep "$PROFILE_STRING" "$HOME/.profile" > /dev/null; then
@@ -249,6 +231,132 @@ tasks:
         else
           .config/log error "System type not recognized"
         fi
+
+  scoop:scan:
+    deps:
+      - :install:software:jq
+    env:
+      TMP:
+        sh: mktemp
+    log:
+      error: Error while extracting Scoop information
+      start: Extracting Scoop information
+      success: Successfully extracted Scoop information
+    cmds:
+      - jq --arg scoops "$(jq -n '[["Project", "Description"], (inputs | ["**[" + .homepage + "](" + .homepage + ")**", .description ])]' Scoops/*.json)"
+        '.scoop_var_chart = $scoops' .variables.json > "$TMP" && mv "$TMP" .variables.json
+
+  system:upgrade:
+    log:
+      error: Encountered error while upgrading system
+      start: Upgrading system packages
+    cmds:
+      - task: system:upgrade:apk
+      - task: system:upgrade:apt-get
+      - task: system:upgrade:dnf
+      - task: system:upgrade:pacman
+      - task: system:upgrade:yum
+      - task: system:upgrade:macos
+
+  system:upgrade:apk:
+    cmds:
+      - |
+        if [ "$USER" == "root" ]; then
+          .config/log info 'TODO'
+        elif type sudo &> /dev/null && sudo -n true; then
+          .config/log info 'TODO'
+        elif type sudo &> /dev/null; then
+          .config/log info 'TODO'
+        else
+          .config/log warn '`sudo` unavailable and user has no permissions'
+        fi
+    status:
+      - '[ -z "$(which apk)" ]'
+
+  system:upgrade:apt-get:
+    cmds:
+      - |
+        if [ "$USER" == "root" ]; then
+          apt-get update
+          apt-get install -y {{.PACKAGE}}
+        elif type sudo &> /dev/null && sudo -n true; then
+          sudo apt-get update
+          sudo apt -y upgrade
+        elif type sudo &> /dev/null; then
+          .config/log info 'Running `sudo apt-get update`'
+          sudo apt-get update
+          .config/log info 'Running `sudo apt -y upgrade`'
+          sudo apt -y upgrade
+        else
+           .config/log warn '`sudo` unavailable and user has no permissions'
+        fi
+    status:
+      - '[ -z "$(which apt-get)" ]'
+
+  system:upgrade:dnf:
+    cmds:
+      - |
+        if [ "$USER" == "root" ]; then
+          dnf clean all
+          dnf check-update
+          dnf update
+        elif type sudo &> /dev/null && sudo -n true; then
+          sudo dnf clean all
+          sudo dnf check-update
+          sudo dnf update
+        elif type sudo &> /dev/null; then
+          .config/log info 'Running `sudo dnf clean all`'
+          sudo dnf clean all
+          .config/log info 'Running `sudo dnf check-update`'
+          sudo dnf check-update
+          .config/log info 'Running `sudo dnf update`'
+          sudo dnf update
+        else
+           .config/log warn '`sudo` unavailable and user has no permissions'
+        fi
+    status:
+      - '[ -z "$(which dnf)" ]'
+
+  system:upgrade:macos:
+    cmds:
+      - echo "TODO Upgrade macOS system version via CLI"
+    status:
+      - '[ "{{OS}}" != "darwin" ]'
+
+  system:upgrade:pacman:
+    cmds:
+      - |
+        if [ "$USER" == "root" ]; then
+          .config/log 'TODO'
+        elif type sudo &> /dev/null && sudo -n true; then
+          .config/log 'TODO'
+        elif type sudo &> /dev/null; then
+          .config/log 'TODO'
+        else
+           .config/log warn '`sudo` unavailable and user has no permissions'
+        fi
+    status:
+      - '[ -z "$(which pacman)" ]'
+
+  system:upgrade:yum:
+    cmds:
+      - |
+        if [ "$USER" == "root" ]; then
+          yum clean all
+          yum update
+        elif type sudo &> /dev/null && sudo -n true; then
+          sudo yum clean all
+          sudo yum update
+        elif type sudo &> /dev/null; then
+          .config/log info 'Running `sudo yum clean all`'
+          sudo yum clean all
+          .config/log info 'Running `sudo yum update`'
+          sudo yum update
+        else
+           .config/log warn '`sudo` unavailable and user has no permissions'
+        fi
+    status:
+      - '[ -z "$(which yum)" ]'
 
   tslib:
     vars:
@@ -273,3 +381,16 @@ tasks:
         fi
     status:
       - '[ ! -f tsconfig.json ]'
+
+  ventoy:
+    cmds:
+      - task: :install:ventoy:install
+      - task: ventoy:init
+    preconditions:
+      - sh: test -d /run/media/user/Ventoy
+        msg: The `/run/media/user/Ventoy` mounted USB directory must be available!
+
+  ventoy:init:
+    deps:
+      - :install:ventoy:clone
+      - :install:ventoy:download

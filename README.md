@@ -1,26 +1,29 @@
 <!-- ⚠️ This README has been generated from the file(s) ".config/docs/blueprint-readme-codeclimate.md" ⚠️--><div align="center">
   <center>
-    <a href="https://github.com/ProfessorManhattan/codeclimate-eslint">
+    <a href="https://github.com/megabyte-labs/codeclimate-eslint">
       <img width="148" height="148" alt="ESLint logo" src="https://gitlab.com/megabyte-labs/docker/codeclimate/eslint/-/raw/master/logo.png" />
     </a>
   </center>
 </div>
 <div align="center">
   <center><h1 align="center"><i></i>ESLint v8.x.x CodeClimate Engine<i></i></h1></center>
-  <center><h4 style="color: #18c3d1;">A slim Docker image and CodeClimate engine maintained by <a href="https://megabyte.space" target="_blank">Megabyte Labs</a></h4><i></i></center>
+  <center><h4 style="color: #18c3d1;">A performance-optimized CodeClimate engine maintained by <a href="https://megabyte.space" target="_blank">Megabyte Labs</a></h4><i></i></center>
 </div>
 
 <div align="center">
   <a href="https://megabyte.space" title="Megabyte Labs homepage" target="_blank">
     <img alt="Homepage" src="https://img.shields.io/website?down_color=%23FF4136&down_message=Down&label=Homepage&logo=home-assistant&logoColor=white&up_color=%232ECC40&up_message=Up&url=https%3A%2F%2Fmegabyte.space&style=for-the-badge" />
   </a>
-  <a href="https://github.com/ProfessorManhattan/codeclimate-eslint/blob/master/docs/CONTRIBUTING.md" title="Learn about contributing" target="_blank">
+  <a href="https://github.com/megabyte-labs/codeclimate-eslint/blob/master/docs/CONTRIBUTING.md" title="Learn about contributing" target="_blank">
     <img alt="Contributing" src="https://img.shields.io/badge/Contributing-Guide-0074D9?logo=github-sponsors&logoColor=white&style=for-the-badge" />
   </a>
   <a href="https://app.slack.com/client/T01ABCG4NK1/C01NN74H0LW/details/" title="Chat with us on Slack" target="_blank">
     <img alt="Slack" src="https://img.shields.io/badge/Slack-Chat-e01e5a?logo=slack&logoColor=white&style=for-the-badge" />
   </a>
-  <a href="https://github.com/ProfessorManhattan/codeclimate-eslint" title="GitHub mirror" target="_blank">
+  <a href="https://gitter.im/megabyte-labs/community" title="Chat with the community on Gitter" target="_blank">
+    <img alt="Gitter" src="https://img.shields.io/gitter/room/megabyte-labs/community?logo=gitter&logoColor=white&style=for-the-badge" />
+  </a>
+  <a href="https://github.com/megabyte-labs/codeclimate-eslint" title="GitHub mirror" target="_blank">
     <img alt="GitHub" src="https://img.shields.io/badge/Mirror-GitHub-333333?logo=github&style=for-the-badge" />
   </a>
   <a href="https://gitlab.com/megabyte-labs/docker/codeclimate/eslint" title="GitLab repository" target="_blank">
@@ -29,7 +32,7 @@
 </div>
 <br/>
 <div align="center">
-  <a title="Version: 8.11.0" href="https://github.com/ProfessorManhattan/codeclimate-eslint" target="_blank">
+  <a title="Version: 8.11.0" href="https://github.com/megabyte-labs/codeclimate-eslint" target="_blank">
     <img alt="Version: 8.11.0" src="https://img.shields.io/badge/version-8.11.0-blue.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAABlBMVEUAAAD///+l2Z/dAAAAAXRSTlMAQObYZgAAACNJREFUCNdjIACY//+BEp9hhM3hAzYQwoBIAqEDYQrCZLwAAGlFKxU1nF9cAAAAAElFTkSuQmCC&cacheSeconds=2592000&style=flat-square" />
   </a>
   <a title="GitLab build status" href="https://gitlab.com/megabyte-labs/docker/codeclimate/eslint/-/commits/master" target="_blank">
@@ -47,7 +50,7 @@
   <a title="Documentation" href="https://megabyte.space/docs/docker" target="_blank">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg?logo=readthedocs&logoColor=white&style=flat-square" />
   </a>
-  <a title="License: MIT" href="https://github.com/ProfessorManhattan/codeclimate-eslint/blob/master/LICENSE" target="_blank">
+  <a title="License: MIT" href="https://github.com/megabyte-labs/codeclimate-eslint/blob/master/LICENSE" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-yellow.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAABlBMVEUAAAD///+l2Z/dAAAAAXRSTlMAQObYZgAAAHpJREFUCNdjYOD/wMDAUP+PgYHxhzwDA/MB5gMM7AwMDxj4GBgKGGQYGCyAEEgbMDDwAAWAwmk8958xpIOI5zKH2RmOyhxmZjguAiKmgIgtQOIYmFgCIp4AlaQ9OczGkJYCJEAGgI0CGwo2HmwR2Eqw5SBnNIAdBHYaAJb6KLM15W/CAAAAAElFTkSuQmCC&style=flat-square" />
   </a>
 </div>
@@ -268,7 +271,7 @@ At first glance, you might notice that there are many files in this repository. 
 
 ## Contributing
 
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/ProfessorManhattan/codeclimate-eslint/issues). If you would like to contribute, please take a look at the [contributing guide](https://github.com/ProfessorManhattan/codeclimate-eslint/blob/master/docs/CONTRIBUTING.md).
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/megabyte-labs/codeclimate-eslint/issues). If you would like to contribute, please take a look at the [contributing guide](https://github.com/megabyte-labs/codeclimate-eslint/blob/master/docs/CONTRIBUTING.md).
 
 <details>
 <summary><b>Sponsorship</b></summary>

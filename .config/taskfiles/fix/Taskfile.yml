@@ -23,7 +23,7 @@ tasks:
     deps:
       - :install:modules:local
       - :install:npm:eslint
-      - :install:software:expect
+      - :install:software:unbuffer
     desc: Fix ESLint errors automatically
     summary: |
       # Fix Errors with ESLint Automatically
@@ -37,28 +37,29 @@ tasks:
 
       **Example fixing all files in a project:**
       `task fix:js`
+    vars:
+      ESLINT_LOG:
+        sh: mktemp
     log:
       error: ESLint found some issues that need to be fixed manually
       start: Auto-fixing with ESLint
       success: ESLint fixing appears to have corrected all the issues {{if .CLI_ARGS}}in `{{.CLI_ARGS}}`{{else}}in the project{{end}}
     cmds:
       - 'unbuffer {{.NPX_HANDLE}}eslint -c package.json --no-eslintrc --format {{.ESLINT_FORMATTER}} --cache --cache-location .cache/eslintcache
-        --fix {{if .CLI_ARGS}}{{.CLI_ARGS}}{{else}}.{{end}} | tee eslint.log'
+        --fix {{if .CLI_ARGS}}{{.CLI_ARGS}}{{else}}.{{end}} | tee {{.ESLINT_LOG}}'
       - |
         if [ '{{.ESLINT_FIX_RECURSIVE}}' == 'true' ]; then
           COUNT=0
           while [ $COUNT -le 5 ]; do
             COUNT=$((COUNT + 1))
-            if grep 'potentially fixable with the `--fix` option' < eslint.log > /dev/null; then
+            if grep 'potentially fixable with the `--fix` option' < {{.ESLINT_LOG}} > /dev/null; then
               COUNT="$COUNT"
               unbuffer {{.NPX_HANDLE}}eslint -c package.json --no-eslintrc --format {{.ESLINT_FORMATTER}} --cache --cache-location .cache/eslintcache \
-              --fix {{if .CLI_ARGS}}{{.CLI_ARGS}}{{else}}.{{end}} | tee eslint.log
-            else
-              echo '' > eslint.log
+              --fix {{if .CLI_ARGS}}{{.CLI_ARGS}}{{else}}.{{end}} | tee {{.ESLINT_LOG}}
             fi
           done
         fi
-      - rm eslint.log
+      - rm {{.ESLINT_LOG}}
 
   eslint:staged:
     deps:
@@ -159,7 +160,7 @@ tasks:
 
   misc:
     deps:
-      - :install:python:requirements
+      - :install:pipx:pre-commit-hooks
     summary: |
       # Miscellaneous fixes
 
@@ -181,8 +182,8 @@ tasks:
     cmds:
       - |
         function misc() {
-          {{.PYTHON_HANDLE}}fix-byte-order-marker "$1"
-          {{.PYTHON_HANDLE}}mixed-line-ending --fix=lf "$1"
+          fix-byte-order-marker "$1"
+          mixed-line-ending --fix=lf "$1"
         }
         {{if .CLI_ARGS}}
           misc '{{.CLI_ARGS}}'
@@ -284,7 +285,9 @@ tasks:
 
   python:
     deps:
-      - :install:python:requirements
+      - :install:pipx:add-trailing-comma
+      - :install:pipx:isort
+      - :install:pipx:pyformat
     desc: Automatically format Python files using Black
     hide: '{{ne .REPOSITORY_TYPE "python"}}'
     summary: |
@@ -308,10 +311,14 @@ tasks:
     cmds:
       - |
         {{if .CLI_ARGS}}
-          {{.PYTHON_HANDLE}}black {{.CLI_ARGS}}
+          pyformat -i {{.CLI_ARGS}}
+          isort --overwrite-in-place {{.CLI_ARGS}}
+          add-trailing-comma --exit-zero-even-if-changed {{.CLI_ARGS}}
         {{else}}
           while read PATHH; do
-            {{.PYTHON_HANDLE}}black "$PATHH"
+            pyformat -i "$PATHH"
+            isort --overwrite-in-place "$PATHH"
+            add-trailing-comma --exit-zero-even-if-changed "$PATHH"
           done < <(find . -type d \( {{.IGNORE_FOLDERS}} \) -prune -o -type f \( -name '*.py' \))
         {{end}}
 
@@ -378,7 +385,7 @@ tasks:
 
   toml:
     deps:
-      - :install:python:requirements
+      - :install:pipx:toml-sort
     desc: Format `.toml` files by alphabetizing and flattening
     summary: |
       # Automatically format `.toml` files
@@ -398,10 +405,12 @@ tasks:
     cmds:
       - |
         {{if .CLI_ARGS}}
-          {{.PYTHON_HANDLE}}toml-sort -i --all {{.CLI_ARGS}}
+        if [ -f '{{.CLI_ARGS}}' ]; then
+          toml-sort -i --all {{.CLI_ARGS}}
+        fi
         {{else}}
           while read PATHH; do
-            {{.PYTHON_HANDLE}}toml-sort -i --all "$PATHH"
+            toml-sort -i --all "$PATHH"
           done < <(find . -type d \( {{.IGNORE_FOLDERS}} \) -prune -o -type f \( -name '*.toml' \))
         {{end}}
 

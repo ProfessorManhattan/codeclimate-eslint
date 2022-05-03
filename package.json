@@ -8,7 +8,7 @@
   "homepage": "https://megabyte.space",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ProfessorManhattan/codeclimate-eslint.git"
+    "url": "git+https://github.com/megabyte-labs/codeclimate-eslint.git"
   },
   "bugs": {
     "email": "help@megabyte.space",
@@ -29,13 +29,13 @@
     "lint": "bash start.sh && task lint",
     "preload": "bash start.sh && task preload",
     "prepare": "bash start.sh && (test -f Taskfile.yml && task npm:prepare) || true",
-    "prepublishOnly": "test -z $SKIP_PREPUB && bash start.sh && task npm:bundle:create || true",
     "release": "bash start.sh && task publish:semantic-release",
     "repair": "bash <(curl -sS https://install.doctor/repair)",
     "start": "test -z $SKIP_NPM_START && bash start.sh || true",
     "test": "bash start.sh && task docker:test",
     "unpack": "bash start.sh && task npm:bundle:unpack",
-    "update": "bash start.sh && task update"
+    "update": "bash start.sh && task update",
+    "vscode": "bash start.sh && task vscode"
   },
   "config": {
     "commitizen": {
@@ -77,8 +77,11 @@
     "node": ">=14.18.0"
   },
   "publishConfig": {
+    "@gitlab:registry": "https://gitlab.com/api/v4/projects/32219047/packages/npm/",
     "@megabyte:registry": "https://gitlab.com/api/v4/projects/32219047/packages/npm/",
-    "access": "public"
+    "access": "public",
+    "registry": "https://registry.npmjs.org/",
+    "tag": "edge"
   },
   "blueprint": {
     "codeClimateLanguages": [
@@ -108,7 +111,7 @@
     "name": "ESLint",
     "overview": "This project is the home of an ESLint 8 [CodeClimate](https://codeclimate.com/) engine. It was built to integrate ESLint results into the GitLab merge request web UI. It adopts most of its code from the [official CodeClimate ESLint engine](https://github.com/codeclimate/codeclimate-eslint). However, that configuration was last updated years ago so an update should be welcomed. In addition, this CodeClimate engine automatically updates the ESLint configuration used from NPM each time it runs. The configuration it uses by default is [eslint-config-strict-mode](https://github.com/ProfessorManhattan/eslint-config-strict-mode) and is suitable for TypeScript, JavaScript, YML, and JSON files.",
     "repository": {
-      "github": "https://github.com/ProfessorManhattan/codeclimate-eslint",
+      "github": "https://github.com/megabyte-labs/codeclimate-eslint",
       "gitlab": "https://gitlab.com/megabyte-labs/docker/codeclimate/eslint"
     },
     "slug": "eslint",
@@ -152,6 +155,10 @@
       "url": "https://www.patreon.com/ProfessorManhattan"
     }
   ],
+  "jscpd": {
+    "gitignore": true,
+    "threshold": 0.1
+  },
   "lint-staged": {
     "(Brewfile|composer.lock|Gemfile|Gopkg.lock|Pipfile.lock)": [
       "task fix:prettier --"
@@ -214,6 +221,9 @@
       "task fix:prettier --",
       "task lint:vagrant"
     ],
+    "logo.(gif|jpg|jpeg|webp)": [
+      "task image:convert:logo --"
+    ],
     "logo.png": [
       "task image:resize -- 200 200",
       "task image:compress --"
@@ -251,7 +261,8 @@
     "peerDependencyRules": {
       "ignoreMissing": [
         "eslint",
-        "prettier"
+        "prettier",
+        "puppeteer"
       ]
     }
   },
@@ -263,10 +274,6 @@
       "next",
       {
         "name": "beta",
-        "prerelease": true
-      },
-      {
-        "name": "alpha",
         "prerelease": true
       }
     ],
