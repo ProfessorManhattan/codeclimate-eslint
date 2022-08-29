@@ -189,21 +189,24 @@ tasks:
         fi
       - cp package.json package.json.bak
       - |
+        PATH="$PATH:$HOME/.local/bin"
         function handlebars() {
           FILE="$1"
           TMP="$(mktemp)"
           .config/log info 'Generating `'"${FILE//.liquid}"'` from `'"$FILE"'`'
-          {{.NPX_HANDLE}}hbs --data .variables.json --helper ./.config/hbs.cjs "$FILE" --stdout > "$TMP"
+          hbs --data .variables.json --helper ./.config/hbs.cjs "$FILE" --stdout > "$TMP"
           mv "$TMP" "${FILE//.liquid}"
           rm "$FILE"
         }
+        while read FILE; do
+          cp "$FILE" "${FILE//.hbs}"
+        done < <(find . -type f -not \( {{.ADDITIONAL_IGNORE_FOLDERS}} {{.IGNORE_FOLDERS}} \) -prune -name '*.liquid.hbs')
         while read FILE; do
           handlebars "$FILE"
         done < <(find . -type f -not \( {{.ADDITIONAL_IGNORE_FOLDERS}} {{.IGNORE_FOLDERS}} \) -prune -name '*.liquid')
         while read CONFIG_FILE; do
           handlebars "$CONFIG_FILE"
         done < <(find .config -type f -name '*.liquid')
-        wait
       - |
         function ensureKeywords() {
           if [ ! -f "$1" ]; then echo "{}" > "$1"; fi
@@ -234,7 +237,7 @@ tasks:
   template:pyproject:
     run: once
     cmds:
-      - task: :install:github:fusion
+      - task: :install:gh:fusion
       - task: template:pyproject:config
       - task: template:pyproject:local
       - task: template:pyproject:fix
@@ -264,6 +267,8 @@ tasks:
       - '[ -n "$NO_INSTALL_HOMEBREW" ]'
 
   template:pyproject:local:
+    deps:
+      - :install:gh:fusion
     vars:
       PYPROJECT_NOTICE: |-
         ##### IMPORTANT DEVELOPER NOTICE #####
